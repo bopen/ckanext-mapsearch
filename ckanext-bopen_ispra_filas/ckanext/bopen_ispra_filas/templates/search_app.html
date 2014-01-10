@@ -1,0 +1,24 @@
+{# a template that uses the central (bootstrap) area  #}
+{% extends "page.html" %}
+
+{% block links %}
+  <link href="/filas_favicon.ico" rel="icon"/>
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block primary %}
+    {% block search_app %}
+        <div class="module-content">
+          <h1 class="page-heading">About</h1>
+          <section class="module">
+            <h2>{{ _('This is my content heading') }}</h2>
+            <p>{{ _('This is my content') }}</p>
+            <p>gassga</p>
+          </section>
+        </div>
+    {% endblock %}
+{% endblock %}
+{% block toolbar %}{% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block secondary %}{% endblock %}
+{% block footer %}{% endblock %}
