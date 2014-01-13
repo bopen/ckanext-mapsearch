@@ -1,0 +1,2 @@
+alert("erre")
+console.log($)

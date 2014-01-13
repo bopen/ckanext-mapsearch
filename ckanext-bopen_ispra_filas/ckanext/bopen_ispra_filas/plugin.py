@@ -12,6 +12,7 @@ class BopenIspraFilasPlugin(plugins.SingletonPlugin):
         # add template directory
         plugins.toolkit.add_template_directory(config, 'templates')
         plugins.toolkit.add_public_directory(config, 'public') 
+        plugins.toolkit.add_resource('fanstatic', 'bopen_js')
 
     ## IRoutes
     def before_map(self, map):

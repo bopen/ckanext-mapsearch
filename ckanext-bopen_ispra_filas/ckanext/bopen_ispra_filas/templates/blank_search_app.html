@@ -1,8 +1,14 @@
 {# a blank template (without the central (bootstrap) area)  #}
 {% extends "base.html" %}
 
+
 {% block links %}
     <link href="/filas_favicon.ico" rel="icon"/>
+    <link href="/filas_favicon.ico" rel="icon"/>
+{% endblock %}
+
+{% block scripts %}
+    {% resource 'bopen_js/javascripts/setup.js' %}
 {% endblock %}
 
 {% block page %}
@@ -17,3 +23,4 @@
       </div>
     {% endblock %}
 {% endblock %}
+
