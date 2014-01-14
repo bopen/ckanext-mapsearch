@@ -1,0 +1,35 @@
+#all {
+    position: absolute;
+    position:fixed !important;
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+}
+
+#map-container {
+    width: 100%;
+    height: 500px;
+}
+
+.dataset_result {
+    width: 85%;
+    background-color: #bbbbbb;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 3px;
+}
+
+#left_column {
+    position: absolute;
+    left: 5px;
+    padding: 0px;
+    width: 20%;
+}
+
+#right_column {
+    margin-left: 20%;
+    padding: 0px;
+    margin-right: 0;
+}
