@@ -98,6 +98,7 @@ this.ckan.module('map-search', function ($, _) {
           title: 'Draw rectangle'
         }
       }));
+      if (typeof bop !== 'undefined') bop.map = map;
 
       // OK add the expander
       $('.leaflet-control-draw a', module.el).on('click', function(e) {

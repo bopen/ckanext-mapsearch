@@ -1,5 +1,6 @@
 {# a blank template (without the central (bootstrap) area)  #}
 {% extends "base.html" %}
+{% import 'macros/form.html' as form %}
 
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
@@ -10,8 +11,10 @@
 {% endblock %}
 
 {% block scripts %}
+    {% resource 'bopen_js/javascripts/vendor/jquery_ui_min.js' %}
     {% resource 'bopen_js/javascripts/map_search.js' %}
     {% resource 'bopen_js/css/style.css' %}
+    {% resource 'bopen_js/css/jquery_ui_min.css' %}
     {% resource 'ckanext-spatial/spatial_query' %}
     {% resource 'bopen_js/javascripts/setup.js' %}
 {% endblock %}
@@ -21,12 +24,23 @@
         <div id="all">
           <div id="left_column">
              <div class="dataset_result" style="display:block">
-               sdgad aslfkjas dflaskgj laskjdl aksjdhl akjsdhl aksjdgl aksjfg aslkjd lghksajglksjd 
+               <input id="keyword_search_input" type="text"/>
+{% block package_metadata_fields %}
+
+                {% block dataset_fields %}
+              {#{ form.input('title', label=_('Title'), value=data.title, error=errors.title) }#}
+                    {% set ms_attrs = {'data-module': 'autocomplete', 'data-module-source': '/api/2/util/group/autocomplete?q=?', 'data-module-key': 'id', 'data-module-label': 'title'} %}
+                    {{ form.input('title', label=_('Keywords'), id="field-group", value="saasf", classes=[''], attrs=ms_attrs) }}
+{% endblock %}
+{% endblock %}
              </div>
+              <div id="dataset-map-attribution">
+                sdakjglaksj
+              </div>
           </div>
           <div id="right_column">
             {% set map_config = h.get_common_map_config() %}
-            <div class="dataset-map" data-module="map-search" data-default_extent="{{ default_extent }}" data-module-map_config="{{ h.dump_json(map_config) }}">
+            <div id='map_creator' class="dataset-map" data-module="map-search" data-default_extent="{{ default_extent }}" data-module-map_config="{{ h.dump_json(map_config) }}">
               <div id="map-container"></div>
             </div>
           </div>
