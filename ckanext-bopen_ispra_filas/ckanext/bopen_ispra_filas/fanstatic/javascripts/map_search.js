@@ -68,9 +68,10 @@ this.ckan.module('map-search', function ($, _) {
       var extentLayer;
       var previous_box;
       var previous_extent;
-      var is_exanded = false;
+      var is_exanded = true;
       var should_zoom = true;
       var form = $("#dataset-search");
+      var move_counter = 0;
       // CKAN 2.1
       if (!form.length) {
           form = $(".search-form");
@@ -88,6 +89,7 @@ this.ckan.module('map-search', function ($, _) {
       // OK map time
       map = ckan.commonLeafletMap('map-container', this.options.map_config, {attributionControl: false});
 
+      map.addControl(new L.Control.Scale({imperial:false, maxWidth: 200}));
       // Initialize the draw control
       map.addControl(new L.Control.Draw({
         position: 'topright',
@@ -105,7 +107,7 @@ this.ckan.module('map-search', function ($, _) {
         if (!is_exanded) {
           $('body').addClass('dataset-map-expanded');
           if (should_zoom && !extentLayer) {
-            map.zoomIn();
+            //map.zoomIn();
           }
           resetMap();
           is_exanded = true;

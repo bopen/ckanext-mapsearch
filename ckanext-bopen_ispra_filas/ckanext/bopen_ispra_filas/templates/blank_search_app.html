@@ -23,19 +23,15 @@
     {% block search_app %}
         <div id="all">
           <div id="left_column">
-             <div class="dataset_result" style="display:block">
-               <input id="keyword_search_input" type="text"/>
-{% block package_metadata_fields %}
-
-                {% block dataset_fields %}
-              {#{ form.input('title', label=_('Title'), value=data.title, error=errors.title) }#}
-                    {% set ms_attrs = {'data-module': 'autocomplete', 'data-module-source': '/api/2/util/group/autocomplete?q=?', 'data-module-key': 'id', 'data-module-label': 'title'} %}
-                    {{ form.input('title', label=_('Keywords'), id="field-group", value="saasf", classes=[''], attrs=ms_attrs) }}
-{% endblock %}
-{% endblock %}
-             </div>
+            <div id="dataset-search" style="display:block"></div>
+              <div class="left_panel query_panel" style="display:block">
+                <input id="keyword_search_input" type="text"/>
+                <button id="keyword_clear_button">clear</button>
+              </div>
               <div id="dataset-map-attribution">
-                sdakjglaksj
+              </div>
+              {% snippet "snippets/result_panel.html" %}
+              <div id="result_panel_container">
               </div>
           </div>
           <div id="right_column">

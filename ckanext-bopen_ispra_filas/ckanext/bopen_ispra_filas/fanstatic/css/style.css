@@ -13,12 +13,18 @@
     height: 500px;
 }
 
-.dataset_result {
-    width: 85%;
-    background-color: #bbbbbb;
-    border-radius: 10px;
+.left_panel {
+    width: 89%;
+    border-radius: 3px;
     padding: 10px;
     margin: 3px;
+}
+.query_panel{
+    background-color: #cccccc;
+
+}
+.dataset_result_panel {
+    background-color: #dddddd;
 }
 
 #left_column {
@@ -33,3 +39,14 @@
     padding: 0px;
     margin-right: 0;
 }
+.tag_list {
+    margin: 0;
+    list-style: none;
+    padding: 10px 10px 5px 10px;j
+}
+
+.tag_list li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
