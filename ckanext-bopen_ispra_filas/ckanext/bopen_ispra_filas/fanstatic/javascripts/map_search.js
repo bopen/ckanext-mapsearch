@@ -1,4 +1,4 @@
-/* Module for handling the spatial querying
+/* Module for handling the strictly map-related functionality
  */
 this.ckan.module('map-search', function ($, _) {
 
@@ -141,6 +141,19 @@ this.ckan.module('map-search', function ($, _) {
             submitForm();
           }, 200);
         }
+      });
+
+      map.on('moveend', function (e) {
+          if (!extentLayer) {
+              $('#ext_bbox').val(map.getBounds().toBBoxString());
+              console.log("updating bbox")
+              if (move_counter > 0) {
+                  console.log("requesting datasets")
+                  bop.request_data();
+                  //TODO: request datasets
+              }
+          }
+          move_counter++;
       });
 
       // When user finishes drawing the box, record it and add it to the map
