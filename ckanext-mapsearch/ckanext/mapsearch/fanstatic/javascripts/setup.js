@@ -1,4 +1,4 @@
-this.ckan.module('map-search-setup', function ($, _) {
+this.ckan.module('mapsearch-setup', function ($, _) {
     if (typeof bop === 'undefined') {bop = {}}
 
     $(document).ready(function () {
@@ -20,11 +20,11 @@ this.ckan.module('map-search-setup', function ($, _) {
     });
 
     bop.request_data = function () {
-        bop._do_request('/map-search/query_datasets');
+        bop._do_request('/mapsearch/query_datasets');
     }
 
     bop.request_completion = function (success_handler) {
-        bop._do_request('/map-search/text_complete', success_handler);
+        bop._do_request('/mapsearch/text_complete', success_handler);
     }
 
     bop._do_request = function (path, success_handler) {

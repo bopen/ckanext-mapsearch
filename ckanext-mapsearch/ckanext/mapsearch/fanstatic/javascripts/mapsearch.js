@@ -1,6 +1,6 @@
 /* Module for handling the strictly map-related functionality
  */
-this.ckan.module('map-search', function ($, _) {
+this.ckan.module('mapsearch', function ($, _) {
 
   return {
     options: {

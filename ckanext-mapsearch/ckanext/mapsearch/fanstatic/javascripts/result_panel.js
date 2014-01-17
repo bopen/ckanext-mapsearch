@@ -1,4 +1,4 @@
-this.ckan.module('map-search-result-panel', function ($, _) {
+this.ckan.module('mapsearch-result-panel', function ($, _) {
     /*
      *author: ""
      author_email: ""
