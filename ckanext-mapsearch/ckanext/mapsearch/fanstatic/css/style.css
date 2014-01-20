@@ -26,6 +26,9 @@
 .dataset_result_panel {
     background-color: #dddddd;
 }
+.dataset_result_panel span {
+    font-size: 8pt;
+}
 
 #left_column {
     position: absolute;
@@ -39,6 +42,14 @@
     padding: 0px;
     margin-right: 0;
 }
+.result_panel_label {
+  width:30%;
+  float: left;
+}
+.result_panel_data {
+  width: 70%;
+}
+
 .tag_list {
     margin: 0;
     list-style: none;
