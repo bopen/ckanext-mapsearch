@@ -100,7 +100,20 @@ this.ckan.module('mapsearch', function ($, _) {
           title: 'Draw rectangle'
         }
       }));
-      if (typeof bop !== 'undefined') bop.map = map;
+      var onEachFeature = function  (feature, layer) {
+          if (feature.properties && feature.properties.id) {
+              layer.on({'click':
+                  function () {
+                      bop.select_result(feature.properties.id);
+                  },
+              });
+          }
+      };
+
+      if (typeof bop !== 'undefined') {
+          bop.map = map;
+          bop.result_layer = L.geoJson([], {onEachFeature:onEachFeature}).addTo(map);
+      }
 
       // OK add the expander
       $('.leaflet-control-draw a', module.el).on('click', function(e) {
@@ -146,7 +159,6 @@ this.ckan.module('mapsearch', function ($, _) {
       map.on('moveend', function (e) {
           if (!extentLayer) {
               $('#ext_bbox').val(map.getBounds().toBBoxString());
-              console.log("updating bbox")
               if (move_counter > 0) {
                   console.log("requesting datasets")
                   bop.request_data();
