@@ -17,8 +17,10 @@ class MapsearchPlugin(plugins.SingletonPlugin):
     ## IRoutes
     def before_map(self, map):
         controller = 'ckanext.mapsearch.controllers:ViewController'
-        map.connect('map_viewer', '/mapsearch', controller=controller, action='show')
-        map.connect('map_viewer', '/mapsearch/text_complete', controller=controller, action='text_complete')
-        map.connect('map_viewer', '/mapsearch/query_datasets', controller=controller, action='query_datasets')
-        #map.redirect('/', '/dataset')
+        map.connect('map_viewer', '/mapsearch',
+                    controller=controller, action='show')
+        map.connect('map_viewer', '/mapsearch/text_complete',
+                    controller=controller, action='text_complete')
+        map.connect('map_viewer', '/mapsearch/query_datasets',
+                    controller=controller, action='query_datasets')
         return map

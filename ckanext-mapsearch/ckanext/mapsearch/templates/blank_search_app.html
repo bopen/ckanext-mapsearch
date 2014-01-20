@@ -11,6 +11,10 @@
 {% endblock %}
 
 {% block scripts %}
+    <script>
+        bop = {};
+        bop.solr_url = '{{ c.solr_url }}';
+    </script>
     {% resource 'mapsearch_js/javascripts/vendor/jquery_ui_min.js' %}
     {% resource 'mapsearch_js/javascripts/mapsearch.js' %}
     {% resource 'mapsearch_js/css/style.css' %}
