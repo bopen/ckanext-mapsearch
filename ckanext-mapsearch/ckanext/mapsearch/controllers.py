@@ -32,10 +32,11 @@ class ViewController(BaseController):
         package_search = plugins.toolkit.get_action('package_search')
         #print request.params.keys()
         q = request.params["q"]
+        rows = request.params["rows"]
         srid = get_srid(request.params.get('crs')) if 'crs' in request.params else None
         extents = bbox_query(validate_bbox(request.params["bbox"]), srid)
         ids = [extent.package_id for extent in extents]
         geo_results = dict(count=len(ids), results=ids)
         q_string = "title:*{0}* OR notes:*{0}*".format(q)
-        text_results = package_search(None, {'q': q_string})
+        text_results = package_search(None, {'q': q_string, 'rows': rows})
         return text_results, geo_results
