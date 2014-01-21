@@ -22,6 +22,11 @@ this.ckan.module('mapsearch-setup', function ($, _) {
             $('#keyword_search_input').val("");
         });
         bop.result_nav.setup();
+        if (bop.query_on_load) {
+            setTimeout(function () {
+                           bop.map.fireEvent('moveend');
+            }, 500);
+        }
     });
 
     window.onresize = function (event) {
