@@ -30,5 +30,7 @@ this.ckan.module('mapsearch-setup', function ($, _) {
         bop.y_full = $(window).height();
         $('#all').css({'height': bop.y_full + 'px'});
         $('#map-container').css({'height':  bop.y_full + 'px'});
+        $('#result_panel_container').css({'height': bop.y_full - $('query_panel').height() + 'px',
+                                          'overflow': 'scroll'});
     };
 });

@@ -20,25 +20,31 @@
     margin: 3px;
 }
 .query_panel{
-    background-color: #cccccc;
-
+    background-color: #f4f4f4;
 }
 .dataset_result_panel {
-    background-color: #dddddd;
+    background-color: #f9f9f9;
 }
+.dataset_result_panel.selected {
+    background-color: #e2ffff;
+}
+
 .dataset_result_panel span {
     font-size: 8pt;
 }
 
 #left_column {
     position: absolute;
-    left: 5px;
+    left: 1px;
     padding: 0px;
     width: 20%;
 }
+#result_panel_container {
+    overflow: scroll;
+}
 
 #right_column {
-    margin-left: 20%;
+    margin-left: 20.1%;
     padding: 0px;
     margin-right: 0;
 }
