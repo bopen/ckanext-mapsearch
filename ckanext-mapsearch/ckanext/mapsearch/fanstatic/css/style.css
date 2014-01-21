@@ -33,6 +33,17 @@
     font-size: 8pt;
 }
 
+#navigation_links {
+    text-align:center;
+    padding: 4px;
+    font-size: 16pt;
+}
+.navigation_number.selected {
+    border-radius: 3px;
+    padding: 0px 4px;
+    background-color: #e2ffff;
+}
+
 #left_column {
     position: absolute;
     left: 1px;
@@ -40,7 +51,7 @@
     width: 20%;
 }
 #result_panel_container {
-    overflow: scroll;
+    overflow: auto;
 }
 
 #right_column {

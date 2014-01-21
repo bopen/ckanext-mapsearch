@@ -24,11 +24,12 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         // TODO: cover AJAX-error case
         var q = $('#keyword_search_input').val();
         var bound_string = $('#ext_bbox').val();
-        success_handler = success_handler || bop.display_search_results;
+        success_handler = success_handler || bop.new_search_results;
 
         $.get(path + '?q=' + q + '&bbox=' + bound_string + '&rows=' + bop.dataset_query_limit,
             function (response) {
-                success_handler(JSON.parse(response));
+                bop.current_results = JSON.parse(response)
+                success_handler();
             }
         );
     };

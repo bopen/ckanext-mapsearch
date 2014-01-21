@@ -13,10 +13,16 @@
 {% block scripts %}
     <script>
         bop = {};
+        bop.result_nav = {}
         bop.solr_url = '{{ c.solr_url }}';
+        bop.query_on_load = true;
+        bop.dataset_query_limit = 90;
+        bop.results_per_page = 3;
+        bop.max_num_of_pages = 10;
     </script>
     {% resource 'mapsearch_js/javascripts/vendor/jquery_ui_min.js' %}
     {% resource 'mapsearch_js/javascripts/mapsearch.js' %}
+    {% resource 'mapsearch_js/javascripts/result_navigation.js' %}
     {% resource 'mapsearch_js/javascripts/search_results.js' %}
     {% resource 'mapsearch_js/javascripts/transport.js' %}
     {% resource 'mapsearch_js/css/style.css' %}
@@ -34,6 +40,19 @@
               <div class="left_panel" id="query_panel" style="display:block">
                 <input id="keyword_search_input" type="text"/>
                 <button id="keyword_clear_button">clear</button>
+                <br/>
+                <div id="navigation_links" style="display:none;">
+                  <a href="javascript:" data-dir="previous" class="navigation_arrow" id="navigation_previous"><- </a> 
+                  <a href="javascript:" data-idx="1" class="navigation_number" id="nav_1" "style="display:none">1</a> 
+                  <a href="javascript:" data-idx="2" class="navigation_number" id="nav_2" style="display:none">2</a> 
+                  <a href="javascript:" data-idx="3" class="navigation_number" id="nav_3" style="display:none">3</a> 
+                  <a href="javascript:" data-idx="4" class="navigation_number" id="nav_4" style="display:none">4</a> 
+                  <a href="javascript:" data-idx="5" class="navigation_number" id="nav_5" style="display:none">5</a> 
+                  <a href="javascript:" data-idx="6" class="navigation_number" id="nav_6" style="display:none">6</a> 
+                  <a href="javascript:" data-idx="7" class="navigation_number" id="nav_7" style="display:none">7</a> 
+                  <a href="javascript:" data-idx="8" class="navigation_number" id="nav_8" style="display:none">8</a> 
+                  <a href="javascript:" data-dir="next" class="navigation_arrow" id="navigation_next">-></a>
+                </div>
               </div>
               <div id="dataset-map-attribution">
               </div>
