@@ -160,9 +160,8 @@ this.ckan.module('mapsearch', function ($, _) {
           if (!extentLayer) {
               $('#ext_bbox').val(map.getBounds().toBBoxString());
               if (move_counter > 0) {
-                  console.log("requesting datasets")
-                  bop.request_data();
-                  //TODO: request datasets
+                  //console.log("requesting datasets");
+                  bop.request_datasets();
               }
           }
           move_counter++;

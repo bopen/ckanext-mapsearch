@@ -1,7 +1,7 @@
 /* global bop */
 
 this.ckan.module('mapsearch-transport', function ($, _) {
-    bop.request_data = function () {
+    bop.request_datasets = function () {
         bop._do_request('/mapsearch/query_datasets');
     };
 

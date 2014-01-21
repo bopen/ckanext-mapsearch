@@ -108,6 +108,7 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
             } catch(err) {}
         });
         elem.addClass("selected");
+        elem.get(0).scrollIntoView();
         bop.result_layer.eachLayer(
             function (lay) {
               if (lay.feature.properties.id == id) {

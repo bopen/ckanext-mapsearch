@@ -7,15 +7,17 @@ this.ckan.module('mapsearch-setup', function ($, _) {
         bop.defaultStyle = {color: '#2222CC'};
         $('#keyword_search_input').autocomplete({
            delay: 500,
+           select: bop.request_datasets,
            source: function(current, display_response) {
                bop.request_completion(display_response);
            },
            minLength: 2,
         });
         $('#keyword_search_input').keypress(function( event ) {
-          if ( event.which == 13 ) {
-            event.preventDefault();
-          }});
+            if (event.which == 13) {
+                event.preventDefault();
+                bop.request_datasets();
+            }});
         $('#keyword_clear_button').click(function( event ) {
             $('#keyword_search_input').val("");
         });

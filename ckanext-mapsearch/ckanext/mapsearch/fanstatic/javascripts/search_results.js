@@ -2,7 +2,7 @@
 
 this.ckan.module('mapsearch-search_results', function ($, _) {
     bop.display_search_results = function (results) {
-        var layer, geoJSON;
+        var layer, geoJSON, extents;
         var container = $('#result_panel_container');
         container.empty();
         bop.result_layer.eachLayer(function (layer) {
@@ -12,8 +12,8 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
             if (result.extras && result.extras.length > 0) {
                 //bop.map.removeLayer(bop.result_layer);
                 extents = ($.grep(result.extras,
-                    function (extra, idx) {
-                        return extra.key == 'spatial';
+                    function (extra) {
+                        return extra.key === 'spatial';
                     })
                   );
                 extent = extents.length > 0 && extents[0];
