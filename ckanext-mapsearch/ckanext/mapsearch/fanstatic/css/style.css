@@ -19,12 +19,15 @@
     padding: 10px;
     margin: 3px;
 }
+
 .query_panel{
     background-color: #f4f4f4;
 }
+
 .dataset_result_panel {
     background-color: #f9f9f9;
 }
+
 .dataset_result_panel.selected {
     background-color: #e2ffff;
 }
