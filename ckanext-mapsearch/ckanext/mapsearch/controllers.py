@@ -1,3 +1,4 @@
+from re import findall
 import json
 import pylons.config as config
 import ckan.plugins as plugins
@@ -37,6 +38,9 @@ class ViewController(BaseController):
         extents = bbox_query(validate_bbox(request.params["bbox"]), srid)
         ids = [extent.package_id for extent in extents]
         geo_results = dict(count=len(ids), results=ids)
-        q_string = "title:*{0}* OR notes:*{0}*".format(q)
+        if len(findall("(tags|res_format|title|notes)*:.+", q)) > 0:
+            q_string = q
+        else:
+            q_string = "text:*{0}*".format(q)
         text_results = package_search(None, {'q': q_string, 'rows': rows})
         return text_results, geo_results

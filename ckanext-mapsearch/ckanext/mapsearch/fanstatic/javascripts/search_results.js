@@ -4,6 +4,7 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
     bop.new_search_results = function () {
         bop.result_nav.update();
         bop.display_search_results();
+        bop.update_filter_panel();
     };
     bop.display_search_results = function () {
         var idx = bop.result_nav.current_page,
@@ -11,7 +12,7 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
             to_show = bop.current_results.slice(idx * pp, (idx + 1) * pp),
             container = $('#result_panel_container'),
             layer, geoJSON, extents;
-        container.empty();
+        container.find('.dataset_result_panel').remove();
         bop.result_layer.eachLayer(function (layer) {
             bop.result_layer.removeLayer(layer);
         });
@@ -38,5 +39,6 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
             bop.insert_result_panel(panel);
         });
         bop.update_result_list_presentation_mode();
+        bop.adjust_result_panel_container_height();
     };
 });

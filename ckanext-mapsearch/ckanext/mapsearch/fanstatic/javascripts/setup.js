@@ -20,7 +20,11 @@ this.ckan.module('mapsearch-setup', function ($, _) {
             }});
         $('#keyword_clear_button').click(function( event ) {
             $('#keyword_search_input').val("");
+            bop.filters = [];
+            $('#filter_panel').hide();
+            bop.request_datasets();
         });
+        bop.setup_filter_panel();
         bop.result_nav.setup();
         if (bop.query_on_load) {
             setTimeout(function () {
@@ -38,7 +42,10 @@ this.ckan.module('mapsearch-setup', function ($, _) {
         bop.y_full = $(window).height();
         $('#all').css({'height': bop.y_full + 'px'});
         $('#map-container').css({'height':  bop.y_full + 'px'});
-        $('#result_panel_container').css({'height': bop.y_full - ($('query_panel').height() + 120) + 'px',
+        bop.adjust_result_panel_container_height();
+    };
+    bop.adjust_result_panel_container_height = function () {
+        $('#result_panel_container').css({'height': bop.y_full - ($('#query_panel').height() + 20) + 'px',
                                           'overflow': 'auto'});
     };
 });

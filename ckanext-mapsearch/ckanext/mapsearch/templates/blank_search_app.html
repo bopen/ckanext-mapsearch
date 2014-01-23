@@ -13,15 +13,18 @@
 {% block scripts %}
     <script>
         bop = {};
-        bop.result_nav = {}
+        bop.result_nav = {};
+        bop.filters = [];
+        bop.num_filters_to_display = Number({{c.num_filters_to_display}}) || 12; // number of filterlinks to display (tags, formats, etc);
         bop.solr_url = '{{ c.solr_url }}';
         bop.query_on_load = true;
         bop.dataset_query_limit = 90;
-        bop.results_per_page = 3;
+        bop.results_per_page = 8;
         bop.max_num_of_pages = 10;
     </script>
     {% resource 'mapsearch_js/javascripts/vendor/jquery_ui_min.js' %}
     {% resource 'mapsearch_js/javascripts/mapsearch.js' %}
+    {% resource 'mapsearch_js/javascripts/filters.js' %}
     {% resource 'mapsearch_js/javascripts/result_navigation.js' %}
     {% resource 'mapsearch_js/javascripts/search_results.js' %}
     {% resource 'mapsearch_js/javascripts/transport.js' %}
@@ -40,9 +43,10 @@
               <div class="left_panel" id="query_panel" style="display:block">
                 <textarea id="keyword_search_input" rows="2" wrap="soft"></textarea>
                 <button id="keyword_clear_button">clear</button>
+                <button id="filter_toggler">filters</button>
                 <br/>
                 <div id="navigation_links" style="display:none;">
-                  <a href="javascript:" data-dir="previous" class="navigation_arrow" id="navigation_previous"><- </a> 
+                  <a href="javascript:" data-dir="previous" class="navigation_arrow" id="navigation_previous">&lt;-</a> 
                   <a href="javascript:" data-idx="1" class="navigation_number" id="nav_1" "style="display:none">1</a> 
                   <a href="javascript:" data-idx="2" class="navigation_number" id="nav_2" style="display:none">2</a> 
                   <a href="javascript:" data-idx="3" class="navigation_number" id="nav_3" style="display:none">3</a> 
@@ -52,6 +56,19 @@
                   <a href="javascript:" data-idx="7" class="navigation_number" id="nav_7" style="display:none">7</a> 
                   <a href="javascript:" data-idx="8" class="navigation_number" id="nav_8" style="display:none">8</a> 
                   <a href="javascript:" data-dir="next" class="navigation_arrow" id="navigation_next">-></a>
+                </div>
+                <div id="filter_panel" class="left_panel" style="display:none;">
+                  <div class="filter_group" id="organization_filter_container" title="organization filter" style="display:none;">
+                    <a href="javascript:" class="filter_toggle" data-filter="organization_xxx" id="filter_toggle_proto" style="display:none;">org</a>
+                  </div>
+                  <div class="filter_group" id="groups_filter_container" title="groups filter" style="display:none;">
+                  </div>
+                  <div class="filter_group" id="tags_filter_container" title="tags filter">
+                  </div>
+                  <div class="filter_group" id="formats_filter_container" title="formats filter">
+                  </div>
+                  <div class="filter_group" id="license_filter_container" title="license filter">
+                  </div>
                 </div>
               </div>
               <div id="dataset-map-attribution">
