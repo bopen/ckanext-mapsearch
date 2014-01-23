@@ -31,6 +31,16 @@ this.ckan.module('mapsearch-setup', function ($, _) {
                            bop.map.fireEvent('moveend');
             }, 500);
         }
+        $('#filter_help_window').dialog({
+            autoOpen:false, modal:false,
+            title:"Faceted Search", buttons: [{
+                text: "OK", click: function() {$( this ).dialog( "close" ); }}],
+            width:'66%'});
+        $('#filter_help_opener').click(function (event) {
+            $('#filter_help_window').dialog("open");
+            event.preventDefault();
+            return false;
+        });
     });
 
     window.onresize = function (event) {
