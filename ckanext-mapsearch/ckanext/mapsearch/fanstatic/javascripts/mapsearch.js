@@ -162,9 +162,12 @@ this.ckan.module('mapsearch', function ($, _) {
               if (move_counter > 0) {
                   //console.log("requesting datasets");
                   bop.request_datasets();
+                  bop.request_datasets_for_scale('small');
+                  bop.request_datasets_for_scale('big');
               }
           }
           move_counter++;
+          $('#ext_prev_extent').val(map.getBounds().toBBoxString());
       });
 
       // When user finishes drawing the box, record it and add it to the map
@@ -176,11 +179,6 @@ this.ckan.module('mapsearch', function ($, _) {
         $('#ext_bbox').val(extentLayer.getBounds().toBBoxString());
         map.addLayer(extentLayer);
         $('.apply', buttons).removeClass('disabled').addClass('btn-primary');
-      });
-
-      // Record the current map view so we can replicate it after submitting
-      map.on('moveend', function(e) {
-        $('#ext_prev_extent').val(map.getBounds().toBBoxString());
       });
 
       // Ok setup the default state for the map

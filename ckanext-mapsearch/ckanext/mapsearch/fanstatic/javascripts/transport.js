@@ -2,6 +2,21 @@
 var bop;
 
 this.ckan.module('mapsearch-transport', function ($, _) {
+    bop.request_datasets_for_scale = function (scale) {
+         bop._do_request('/api/3/action/package_search',
+                          function(response) {
+                              var container  = $('#omitted_' + scale);
+                              container.find('span').text(response.result.count);
+                              if (response.result.results.length < 1) {
+                                container.find('a').hide()
+                              } else {
+                                container.find('a').show()
+                              }
+                              bop.omitted_results[scale] = response.result;
+                          },
+                          scale);
+    }
+
     bop.request_datasets = function () {
         bop._do_request('/api/3/action/package_search');
     };
@@ -25,17 +40,17 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         });
     };
 
-    bop._do_request = function (path, success_handler) {
+    bop._do_request = function (path, success_handler, scale) {
         // TODO: cover AJAX-error case
         var q = $('#keyword_search_input').val();
-
         var bound_string = $('#ext_bbox').val();
         success_handler = success_handler || bop.new_search_results;
-
-        $.get(path + '?q=' + q + '&bbox=' + bound_string + '&rows=' + bop.dataset_query_limit,
+        var params = '?q=' + q + '&ext_bbox=' + bound_string + '&rows=' + bop.dataset_query_limit;
+        if (scale) params += '&ext_scale=' + scale;
+        $.get(path + params,
             function (response) {
-                bop.current_results = JSON.parse(response);
-                success_handler();
+                bop.current_results = response.result.results;
+                success_handler(response);
             }
         );
     };
