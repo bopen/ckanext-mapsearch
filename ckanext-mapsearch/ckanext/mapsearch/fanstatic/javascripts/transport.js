@@ -3,7 +3,7 @@ var bop;
 
 this.ckan.module('mapsearch-transport', function ($, _) {
     bop.request_datasets = function () {
-        bop._do_request('/mapsearch/query_datasets');
+        bop._do_request('/api/3/action/package_search');
     };
 
     bop.request_completion = function (success_handler) {

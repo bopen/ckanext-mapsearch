@@ -23,12 +23,11 @@ class ViewController(BaseController):
         return json.dumps([r["title"] for r in text_results['results']
                                           if r['id'] in geo_results['results']])
 
-    def query_datasets(self):
-        """the full query returning datasets"""
-        text_results, geo_results = self._do_query(request)
-        return json.dumps([r for r in text_results['results']
-                               if r['id'] in geo_results['results']])
 
+    # TODO: decide if autocomplete directly to SOLR is feasible or if we have to reanimate
+    # the following method
+    # NB: this method is not used, remove it when at the end of the development
+    # there is still no need to do autocomplete from here
     def _do_query(self, request):
         package_search = plugins.toolkit.get_action('package_search')
         #print request.params.keys()
