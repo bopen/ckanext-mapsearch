@@ -16,6 +16,7 @@ this.ckan.module('mapsearch-setup', function ($, _) {
         $('#keyword_search_input').keypress(function( event ) {
             if (event.which == 13) {
                 event.preventDefault();
+                $("#keyword_search_input").autocomplete("close");
                 bop.request_datasets();
             }});
         $('#keyword_clear_button').click(function( event ) {
