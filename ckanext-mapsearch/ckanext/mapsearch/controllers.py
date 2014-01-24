@@ -17,9 +17,6 @@ class ViewController(BaseController):
     def text_complete(self):
         """must autocomplete take the map-extent in consideration?"""
         text_results, geo_results = self._do_query(request)
-        #print "geo:", geo_results["results"]
-        #print "text:", [r['id'] for r in text_results['results']]
-
         return json.dumps([r["title"] for r in text_results['results']
                                           if r['id'] in geo_results['results']])
 

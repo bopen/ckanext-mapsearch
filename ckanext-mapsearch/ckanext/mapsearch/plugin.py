@@ -10,8 +10,8 @@ class MapsearchPlugin(plugins.SingletonPlugin):
     plugins.implements(IRoutes, inherit=True)
     plugins.implements(IConfigurer, inherit=True)
     plugins.implements(IPackageController, inherit=True)
-    display_upper_bound = config.get('ckanext.mapsearch.upper_bound', 1.1)
-    display_lower_bound = config.get('ckanext.mapsearch.lower_bound', 50)
+    display_upper_bound = float(config.get('ckanext.mapsearch.upper_bound', 1.1))
+    display_lower_bound = float(config.get('ckanext.mapsearch.lower_bound', 50))
 
     ## IConfigurer
     def update_config(self, config):
@@ -56,5 +56,4 @@ class MapsearchPlugin(plugins.SingletonPlugin):
             search_params['fq_list'] = scale_dict[scale]
         else:
             search_params['fq_list'] = scale_dict['normal']
-        print search_params['fq_list']
         return search_params
