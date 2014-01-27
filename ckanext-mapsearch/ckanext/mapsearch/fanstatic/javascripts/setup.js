@@ -42,6 +42,22 @@ this.ckan.module('mapsearch-setup', function ($, _) {
             event.preventDefault();
             return false;
         });
+        $('#scale_toggler').click(function (event) {
+            $('#scale_help').toggle();
+            $('#scale_help_icons').toggle();
+        });
+        $('#scale_hider').click(function (event) {
+            var cont = $('#scale_container');
+            if (cont.is(':visible')) {
+               cont.hide();
+               $('#scale_toggler').hide();
+               $(this).text("show stats");
+            } else {
+               cont.show();
+               $('#scale_toggler').show();
+               $(this).text("hide stats");
+            }
+        });
     });
 
     window.onresize = function (event) {

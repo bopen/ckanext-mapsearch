@@ -31,9 +31,9 @@ this.ckan.module('mapsearch-result_navigation', function ($, _) {
 
     // this method should be called when new results arrive from the server
     bop.result_nav.update = function () {
-        var results = bop.current_results;
+        var results = bop.current_results.results;
         bop.result_nav.current_page = 0;
-        bop.result_nav.num_of_pages = Math.ceil(bop.current_results.length / bop.results_per_page);
+        bop.result_nav.num_of_pages = Math.ceil(bop.current_results.count / bop.results_per_page);
         $('#navigation_links').hide();
         $('.navigation_number').hide();
         if (results.length > bop.results_per_page) {

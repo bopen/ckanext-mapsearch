@@ -26,7 +26,7 @@ this.ckan.module('mapsearch-filters', function ($, _) {
     bop.update_filter_panel = function () {
         var tags = {},
             formats = {};
-        $.each(bop.current_results, function (idx, result) {
+        $.each(bop.current_results.results, function (idx, result) {
              if (result.tags.length > 0) {
                  $.each(result.tags, function (iidx, tag) {
                      if (tags[tag.display_name]) {tags[tag.display_name]++;}

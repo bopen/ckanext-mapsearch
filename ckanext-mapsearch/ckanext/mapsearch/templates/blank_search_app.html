@@ -59,26 +59,58 @@
                   <a href="javascript:" data-idx="8" class="navigation_number" id="nav_8" style="display:none">8</a> 
                   <a href="javascript:" data-dir="next" class="navigation_arrow" id="navigation_next">-></a>
                 </div>
-                <div id="scale_help">
-                  <span id="omitted_too_small">
-                    <span></span> small results omitted
-                  </span><br />
-                  <span id="omitted_small">
-                    <span></span>  slightly smaller results available
-                    <a href="javascript:" onclick="javascript:bop.show_small_omitted()" 
-                      id="omitted_small_link" title="click to show">(show)</a>
-                  </span><br />
-                  <span id="omitted_big">
-                    <span></span> slightly bigger results omitted
-                    <a href="javascript:" onclick="javascript:bop.map.zoomOut(1)" 
-                      id="omitted_big_link" title="click to zoom out">(zoom out)</a>
-                  </span><br />
-                  <span id="omitted_too_big">
-                    <span></span> big results omitted
-                    <a href="javascript:" onclick="javascript:bop.map.zoomOut(4)" 
-                      id="omitted_too_big_link" title="click to zoom far out">(zoom far out)</a>
-                  </span>
+                <div title="click for more info">
+                  <a id="scale_toggler" href="javascript:">stats |</a> 
+                  <a id="scale_hider" href="javascript:">toggle visibility</a>
                 </div>
+                <div id="scale_container">
+                  <div id="scale_help_icons">
+                    <div class="scale_counter omitted_too_small" title="too small for current extent">
+                      <span></span><br/>
+                    </div>
+                    <div class="scale_counter omitted_small"  onclick="javascript:bop.show_small_omitted()"
+                         title="slightly smaller than current extent">
+                      <span></span><br/>
+                    </div>
+                    <div class="scale_counter normal_scale_count" title="currently displayed">
+                      <span></span><br/>
+                    </div>
+                    <div class="scale_counter omitted_big"
+                        onclick="javascript:bop.map.zoomOut(1)"
+                        title="slightly bigger than current extent">
+                      <span></span><br/>
+                    </div>
+                    <div class="scale_counter omitted_too_big"
+                          onclick="javascript:bop.map.zoomOut(3)"
+                          title="too big for current extent">
+                      <span></span><br/>
+                    </div>
+                  </div>
+                  <div id="scale_help" style="display:none;">
+                    <span class="omitted_too_small" title="too small for current extent">
+                      <span></span> small results omitted
+                    </span><br />
+                    <span class="omitted_small" title="slightly smaller than current extent">
+                      <span></span>  slightly smaller results available
+                      <a href="javascript:" onclick="javascript:bop.show_small_omitted()" 
+                        id="omitted_small_link" title="click to show">(show)</a>
+                    </span><br />
+                    <span class="normal_scale_count" title="currently displayed">
+                      <span></span> displayed results
+                    </span><br />
+                    <span class="omitted_big" title="slightly bigger than current extent">
+                      <span></span> slightly bigger results omitted
+                      <a href="javascript:" onclick="javascript:bop.map.zoomOut(1)" 
+                        id="omitted_big_link" title="click to zoom out">(zoom out)</a>
+                    </span><br />
+                    <span class="omitted_too_big" title="too big for current extent">
+                      <span></span> big results omitted
+                      <a href="javascript:" onclick="javascript:bop.map.zoomOut(4)" 
+                        id="omitted_too_big_link" title="click to zoom far out">(zoom far out)</a>
+                    </span>
+                  </div>
+                </div>
+                <div style="clear:both;"></div>
                 <div id="filter_panel" class="left_panel" style="display:none;">
                   <div class="filter_group" id="organization_filter_container" title="organization filter" style="display:none;">
                     <a href="javascript:" class="filter_toggle" data-filter="" id="filter_toggle_proto" style="display:none;">org</a>

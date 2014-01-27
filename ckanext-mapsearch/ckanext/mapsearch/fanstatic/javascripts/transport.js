@@ -6,7 +6,7 @@ this.ckan.module('mapsearch-transport', function ($, _) {
     bop.request_datasets_for_scale = function (scale) {
          bop._do_request('/api/3/action/package_search',
                           function(response) {
-                              var container  = $('#omitted_' + scale);
+                              var container  = $('.omitted_' + scale);
                               container.find('span').text(response.result.count);
                               if (response.result.count < 1) {
                                 container.find('a').hide()
@@ -59,7 +59,9 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         }
         $.get(path + params,
             function (response) {
-                bop.current_results = response.result.results;
+                if (!options || !options.scale) {
+                    bop.current_results = response.result;
+                }
                 success_handler(response);
             }
         );

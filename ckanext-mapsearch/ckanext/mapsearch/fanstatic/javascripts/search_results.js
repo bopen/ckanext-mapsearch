@@ -14,10 +14,11 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
     bop.display_search_results = function () {
         var idx = bop.result_nav.current_page,
             pp = bop.results_per_page,
-            to_show = bop.current_results.slice(idx * pp, (idx + 1) * pp),
+            to_show = bop.current_results.results.slice(idx * pp, (idx + 1) * pp),
             container = $('#result_panel_container'),
             layer, geoJSON, extents;
         container.find('.dataset_result_panel').remove();
+        $('.normal_scale_count span').text(bop.current_results.count);
         bop.result_layer.eachLayer(function (layer) {
             bop.result_layer.removeLayer(layer);
         });

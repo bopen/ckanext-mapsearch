@@ -24,6 +24,47 @@
     background-color: #f4f4f4;
 }
 
+.scale_counter {
+    width: 18%;
+    float: left;
+    display: inline-block;
+}
+
+#scale_help {
+    display :block;
+}
+
+.scale_counter span {
+    background-color: #FFCC99;
+    text-align: center;
+    display: inline-block;
+}
+.scale_counter.omitted_too_small span {
+    border-radius: 1.5em;
+    width: 1.3em;
+    height: 1.3em;
+}
+.scale_counter.omitted_small span {
+    border-radius: 2em;
+    width: 1.7em;
+    height: 1.7em;
+}
+.scale_counter.normal_scale_count span {
+    border-radius: 3em;
+    width: 2em;
+    height: 2em;
+}
+.scale_counter.omitted_big span {
+    border-radius: 4em;
+    width: 3em;
+    height: 3em;
+}
+
+.scale_counter.omitted_too_big span {
+    border-radius: 4em;
+    width: 4em;
+    height: 4em;
+}
 .dataset_result_panel {
     background-color: #f9f9f9;
 }
