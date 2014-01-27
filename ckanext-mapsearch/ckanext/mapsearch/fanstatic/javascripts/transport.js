@@ -2,23 +2,28 @@
 var bop;
 
 this.ckan.module('mapsearch-transport', function ($, _) {
+    var scale_row_dict = {small: false, too_small:0, big:false, too_big:0};
     bop.request_datasets_for_scale = function (scale) {
          bop._do_request('/api/3/action/package_search',
                           function(response) {
                               var container  = $('#omitted_' + scale);
                               container.find('span').text(response.result.count);
-                              if (response.result.results.length < 1) {
+                              if (response.result.count < 1) {
                                 container.find('a').hide()
                               } else {
                                 container.find('a').show()
                               }
                               bop.omitted_results[scale] = response.result;
                           },
-                          scale);
+                          {scale: scale, rows: scale_row_dict[scale]});
     }
 
     bop.request_datasets = function () {
         bop._do_request('/api/3/action/package_search');
+        bop.request_datasets_for_scale('too_small');
+        bop.request_datasets_for_scale('small');
+        bop.request_datasets_for_scale('big');
+        bop.request_datasets_for_scale('too_big');
     };
 
     bop.request_completion = function (success_handler) {
@@ -40,13 +45,18 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         });
     };
 
-    bop._do_request = function (path, success_handler, scale) {
+    bop._do_request = function (path, success_handler, options) {
         // TODO: cover AJAX-error case
         var q = $('#keyword_search_input').val();
         var bound_string = $('#ext_bbox').val();
         success_handler = success_handler || bop.new_search_results;
-        var params = '?q=' + q + '&ext_bbox=' + bound_string + '&rows=' + bop.dataset_query_limit;
-        if (scale) params += '&ext_scale=' + scale;
+        var params = '?q=' + q + '&ext_bbox=' + bound_string
+        if (options && options.scale) params += '&ext_scale=' + options.scale;
+        if (options && typeof options.rows == 'number') {
+            params += '&rows=' + options.rows;
+        } else {
+            params += '&rows=' + bop.dataset_query_limit;
+        }
         $.get(path + params,
             function (response) {
                 bop.current_results = response.result.results;

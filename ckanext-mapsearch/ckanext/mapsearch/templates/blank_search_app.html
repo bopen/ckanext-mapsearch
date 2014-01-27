@@ -60,15 +60,23 @@
                   <a href="javascript:" data-dir="next" class="navigation_arrow" id="navigation_next">-></a>
                 </div>
                 <div id="scale_help">
-                  <span id="omitted_small">
+                  <span id="omitted_too_small">
                     <span></span> small results omitted
+                  </span><br />
+                  <span id="omitted_small">
+                    <span></span>  slightly smaller results available
                     <a href="javascript:" onclick="javascript:bop.show_small_omitted()" 
                       id="omitted_small_link" title="click to show">(show)</a>
                   </span><br />
                   <span id="omitted_big">
-                    <span></span> big results omitted
-                    <a href="javascript:" onclick="javascript:bop.map.zoomOut(2)" 
+                    <span></span> slightly bigger results omitted
+                    <a href="javascript:" onclick="javascript:bop.map.zoomOut(1)" 
                       id="omitted_big_link" title="click to zoom out">(zoom out)</a>
+                  </span><br />
+                  <span id="omitted_too_big">
+                    <span></span> big results omitted
+                    <a href="javascript:" onclick="javascript:bop.map.zoomOut(4)" 
+                      id="omitted_too_big_link" title="click to zoom far out">(zoom far out)</a>
                   </span>
                 </div>
                 <div id="filter_panel" class="left_panel" style="display:none;">

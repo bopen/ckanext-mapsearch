@@ -162,8 +162,6 @@ this.ckan.module('mapsearch', function ($, _) {
               if (move_counter > 0) {
                   //console.log("requesting datasets");
                   bop.request_datasets();
-                  bop.request_datasets_for_scale('small');
-                  bop.request_datasets_for_scale('big');
               }
           }
           move_counter++;
@@ -178,6 +176,7 @@ this.ckan.module('mapsearch', function ($, _) {
         extentLayer = e.rect;
         $('#ext_bbox').val(extentLayer.getBounds().toBBoxString());
         map.addLayer(extentLayer);
+        bop.request_datasets();
         $('.apply', buttons).removeClass('disabled').addClass('btn-primary');
       });
 

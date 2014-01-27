@@ -10,8 +10,10 @@ class MapsearchPlugin(plugins.SingletonPlugin):
     plugins.implements(IRoutes, inherit=True)
     plugins.implements(IConfigurer, inherit=True)
     plugins.implements(IPackageController, inherit=True)
-    display_upper_bound = float(config.get('ckanext.mapsearch.upper_bound', 1.1))
-    display_lower_bound = float(config.get('ckanext.mapsearch.lower_bound', 50))
+    exclude_upper_bound = float(config.get('ckanext.mapsearch.exclude_upper_bound', 0.03))
+    display_upper_bound = float(config.get('ckanext.mapsearch.display_upper_bound', 1.1))
+    display_lower_bound = float(config.get('ckanext.mapsearch.display_lower_bound', 50))
+    exclude_lower_bound = float(config.get('ckanext.mapsearch.exclude_lower_bound', 2500))
 
     ## IConfigurer
     def update_config(self, config):
@@ -25,8 +27,6 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         controller = 'ckanext.mapsearch.controllers:ViewController'
         map.connect('map_viewer', '/mapsearch',
                     controller=controller, action='show')
-#        map.connect('map_viewer', '/mapsearch/text_complete',
-#                    controller=controller, action='text_complete')
         return map
 
     def before_search(self, search_params):
@@ -39,18 +39,26 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         bbox = validate_bbox(search_params['extras'].get('ext_bbox'))
         area_search = abs(bbox['maxx'] - bbox['minx']) * abs(bbox['maxy'] - bbox['miny'])
         area_string = 'div(%s,mul(sub(maxy,miny),sub(maxx,minx)))' % area_search
-        scale_dict = {'small' : ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+        scale_dict = {'too_small': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
                                     # only lower range means '>'
-                                   '{!frange incl=false l=%f}%s' % (self.display_lower_bound,
-                                                                    area_string)],
-                      'normal' : ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                                  '{!frange incl=true l=%f u=%f}%s' % (self.display_upper_bound,
+                                '{!frange incl=false l=%f}%s' % (self.exclude_lower_bound,
+                                                                 area_string)],
+                      'small': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+                                '{!frange incl=true l=%f u=%f}%s' % (self.display_lower_bound,
+                                                                     self.exclude_lower_bound,
+                                                                     area_string)],
+                      'normal': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+                                 '{!frange incl=true l=%f u=%f}%s' % (self.display_upper_bound,
                                                                        self.display_lower_bound,
                                                                        area_string)],
-                      'big' : ['{!frange incl=true l=0 u=1}%s' % search_params['bf'],
-                                    # only upper range means '<'
-                                  '{!frange incl=false u=%f}%s' % (self.display_upper_bound,
+                      'big': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+                              '{!frange incl=true l=%f u=%f}%s' % (self.exclude_upper_bound,
+                                                                   self.display_upper_bound,
                                                                    area_string)],
+                      'too_big': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+                               # only upper range means '<'
+                              '{!frange incl=false u=%f}%s' % (self.exclude_upper_bound,
+                                                                area_string)],
                       }
         if scale:
             search_params['fq_list'] = scale_dict[scale]
