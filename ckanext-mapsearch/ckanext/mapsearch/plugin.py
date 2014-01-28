@@ -35,6 +35,8 @@ class MapsearchPlugin(plugins.SingletonPlugin):
             raise RuntimeError('{0} is not implemented. '.format(backend) +
                                'This extension needs \'solr\' as the search backend')
         scale = search_params['extras'].get('ext_scale')
+        if 'ext_bbox' not in search_params['extras'].keys():
+            return search_params
         bbox = validate_bbox(search_params['extras'].get('ext_bbox'))
         area_search = abs(bbox['maxx'] - bbox['minx']) * abs(bbox['maxy'] - bbox['miny'])
         area_string = 'div(%s,mul(sub(maxy,miny),sub(maxx,minx)))' % area_search
