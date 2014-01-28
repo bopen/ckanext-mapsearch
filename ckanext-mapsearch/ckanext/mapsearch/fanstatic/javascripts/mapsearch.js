@@ -99,9 +99,12 @@ this.ckan.module('mapsearch', function ($, _) {
         rectangle: {
           shapeOptions: module.options.style,
           title: 'Draw rectangle'
-        }
+        },
       }));
       var onEachFeature = function  (feature, layer) {
+          if (feature.properties.mapsearch && feature.properties.mapsearch == 'small') {
+              return;
+          };
           if (feature.properties && feature.properties.id) {
               layer.on({'click':
                   function () {

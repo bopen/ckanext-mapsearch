@@ -8,7 +8,7 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
     };
     bop.show_small_omitted = function () {
         $.each(bop.omitted_results.small.results, function (idx, dataset) {
-            bop.add_extent_to_map(dataset);
+            bop.add_extent_to_map(dataset, {small: true});
         });
     };
     bop.display_search_results = function () {
@@ -31,23 +31,28 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
         bop.adjust_result_panel_container_height();
     };
 
-bop.add_extent_to_map = function (dataset) {
-    if (dataset.extras && dataset.extras.length > 0) {
-        //bop.map.removeLayer(bop.result_layer);
-        extents = ($.grep(dataset.extras,
-            function (extra) {
-                return extra.key === 'spatial';
-            })
-          );
-        extent = extents.length > 0 && extents[0];
-        if (extent) {
-            geoJSON = {"type": "Feature",
-                                      "properties": {
-                                          "name": dataset.name,
-                                          "id": dataset.id
-                                      },
-                                      "geometry": JSON.parse(extent.value)};
-            layer = bop.result_layer.addData(geoJSON);
+    bop.add_extent_to_map = function (dataset, options) {
+        if (dataset.extras && dataset.extras.length > 0) {
+            //bop.map.removeLayer(bop.result_layer);
+            var extents = ($.grep(dataset.extras,
+                    function (extra) {
+                        return extra.key === 'spatial';
+                    })
+                ),
+                extent = extents.length > 0 && extents[0];
+            if (extent) {
+                geoJSON = {"type": "Feature",
+                                          "properties": {
+                                              "name": dataset.name,
+                                              "id": dataset.id
+                                          },
+                                          "geometry": JSON.parse(extent.value)};
+                if (options && options.small) {
+                   geoJSON.properties.style = bop.too_small_to_display_style;
+                   geoJSON.properties.mapsearch = 'small';
+                };
+                layer = bop.result_layer.addData(geoJSON);
+            }
         }
 
     };
