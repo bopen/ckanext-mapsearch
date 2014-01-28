@@ -129,7 +129,7 @@ this.ckan.module('mapsearch', function ($, _) {
       }
 
       map.on('moveend', function (e) {
-          if (!extentLayer) {
+          if (!bop.extentLayer) {
               $('#ext_bbox').val(map.getBounds().toBBoxString());
               if (move_counter > 0) {
                   //console.log("requesting datasets");

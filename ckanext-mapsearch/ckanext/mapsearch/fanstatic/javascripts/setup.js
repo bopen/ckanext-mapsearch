@@ -31,6 +31,11 @@ this.ckan.module('mapsearch-setup', function ($, _) {
                 bop.request_datasets();
             }});
         $('#keyword_clear_button').click(function( event ) {
+            if (bop.extentLayer) {
+                bop.map.removeLayer(bop.extentLayer);
+                delete bop.extentLayer;
+                $('#ext_bbox').val(bop.map.getBounds().toBBoxString());
+            }
             $('#keyword_search_input').val("");
             bop.filters = [];
             $('#filter_panel').hide();
