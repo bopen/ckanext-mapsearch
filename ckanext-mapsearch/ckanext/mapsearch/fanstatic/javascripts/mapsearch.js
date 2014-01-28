@@ -113,7 +113,16 @@ this.ckan.module('mapsearch', function ($, _) {
 
       if (typeof bop !== 'undefined') {
           bop.map = map;
-          bop.result_layer = L.geoJson([], {onEachFeature:onEachFeature}).addTo(map);
+          bop.result_layer = L.geoJson([], {
+            onEachFeature:onEachFeature,
+            style: function (feature) {
+                if (feature && feature.properties && feature.properties.style) {
+                    return feature.properties.style;
+                } else {
+                    return bop.result_style;
+                }
+            }
+          }).addTo(map);
       }
 
       map.on('moveend', function (e) {

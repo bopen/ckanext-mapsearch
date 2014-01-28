@@ -50,6 +50,7 @@
     height: 1.7em;
 }
 .scale_counter.normal_scale_count span {
+    background-color: #DDDD99;
     border-radius: 3em;
     width: 2em;
     height: 2em;

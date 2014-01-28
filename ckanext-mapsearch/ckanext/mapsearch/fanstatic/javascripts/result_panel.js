@@ -104,7 +104,7 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
         $('.dataset_result_panel').removeClass("selected");
         bop.result_layer.eachLayer(function(l){
             try {
-                l.setStyle(bop.defaultStyle);
+                l.setStyle(bop.result_style);
             } catch(err) {}
         });
         elem.addClass("selected");

@@ -3,8 +3,19 @@ this.ckan.module('mapsearch-setup', function ($, _) {
 
     $(document).ready(function () {
         bop.resizeDiv();
-        bop.highlightStyle = {color: '#22CCCC'};
-        bop.defaultStyle = {color: '#2222CC'};
+        bop.result_style = {
+            color: '#2F2FFF',
+            weight: 1,
+            opacity: 1,
+            fillColor: '#2F2FFF',
+            fillOpacity: 0.1
+          };
+        bop.too_small_to_display_style = $.extend({}, bop.result_style,
+                                                     {fillColor: '#DDDD99',
+                                                       fillOpacity: 0.499});
+        bop.highlightStyle = $.extend({}, bop.result_style,
+                                                {fillColor: '#FFFFFF',
+                                                 fillOpacity: 0.499});
         $('#keyword_search_input').autocomplete({
            delay: 500,
            select: bop.request_datasets,

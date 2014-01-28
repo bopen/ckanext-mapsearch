@@ -30,7 +30,6 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
         bop.update_result_list_presentation_mode();
         bop.adjust_result_panel_container_height();
     };
-});
 
 bop.add_extent_to_map = function (dataset) {
     if (dataset.extras && dataset.extras.length > 0) {
@@ -50,6 +49,6 @@ bop.add_extent_to_map = function (dataset) {
                                       "geometry": JSON.parse(extent.value)};
             layer = bop.result_layer.addData(geoJSON);
         }
-    }
 
-};
+    };
+});
