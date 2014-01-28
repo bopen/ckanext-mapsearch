@@ -17,7 +17,6 @@ class MapsearchPlugin(plugins.SingletonPlugin):
 
     ## IConfigurer
     def update_config(self, config):
-        # add template directory
         plugins.toolkit.add_template_directory(config, 'templates')
         plugins.toolkit.add_public_directory(config, 'public')
         plugins.toolkit.add_resource('fanstatic', 'mapsearch_js')

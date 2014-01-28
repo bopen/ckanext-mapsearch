@@ -90,6 +90,7 @@ this.ckan.module('mapsearch', function ($, _) {
       map = ckan.commonLeafletMap('map-container', this.options.map_config, {attributionControl: false});
 
       map.addControl(new L.Control.Scale({imperial:false, maxWidth: 200}));
+
       // Initialize the draw control
       map.addControl(new L.Control.Draw({
         position: 'topright',
@@ -115,47 +116,6 @@ this.ckan.module('mapsearch', function ($, _) {
           bop.result_layer = L.geoJson([], {onEachFeature:onEachFeature}).addTo(map);
       }
 
-      // OK add the expander
-      $('.leaflet-control-draw a', module.el).on('click', function(e) {
-        if (!is_exanded) {
-          $('body').addClass('dataset-map-expanded');
-          if (should_zoom && !extentLayer) {
-            //map.zoomIn();
-          }
-          resetMap();
-          is_exanded = true;
-        }
-      });
-
-      // Setup the expanded buttons
-      buttons = $(module.template.buttons).insertBefore('#dataset-map-attribution');
-
-      // Handle the cancel expanded action
-      $('.cancel', buttons).on('click', function() {
-        $('body').removeClass('dataset-map-expanded');
-        if (extentLayer) {
-          map.removeLayer(extentLayer);
-        }
-        setPreviousExtent();
-        setPreviousBBBox();
-        resetMap();
-        is_exanded = false;
-      });
-
-      // Handle the apply expanded action
-      $('.apply', buttons).on('click', function() {
-        if (extentLayer) {
-          $('body').removeClass('dataset-map-expanded');
-          is_exanded = false;
-          resetMap();
-          // Eugh, hacky hack.
-          setTimeout(function() {
-            map.fitBounds(extentLayer.getBounds());
-            submitForm();
-          }, 200);
-        }
-      });
-
       map.on('moveend', function (e) {
           if (!extentLayer) {
               $('#ext_bbox').val(map.getBounds().toBBoxString());
@@ -171,61 +131,17 @@ this.ckan.module('mapsearch', function ($, _) {
       // When user finishes drawing the box, record it and add it to the map
       map.on('draw:rectangle-created', function (e) {
         if (extentLayer) {
-          map.removeLayer(extentLayer);
+            map.removeLayer(extentLayer);
         }
         extentLayer = e.rect;
+        bop.extentLayer = extentLayer;
         $('#ext_bbox').val(extentLayer.getBounds().toBBoxString());
         map.addLayer(extentLayer);
         bop.request_datasets();
         $('.apply', buttons).removeClass('disabled').addClass('btn-primary');
       });
 
-      // Ok setup the default state for the map
-      var previous_bbox;
-      setPreviousBBBox();
-      setPreviousExtent();
-
-      // OK, when we expand we shouldn't zoom then
-      map.on('zoomstart', function(e) {
-        should_zoom = false;
-      });
-
-
-      // Is there an existing box from a previous search?
-      function setPreviousBBBox() {
-        previous_bbox = module._getParameterByName('ext_bbox');
-        if (previous_bbox) {
-          $('#ext_bbox').val(previous_bbox);
-          extentLayer = module._drawExtentFromCoords(previous_bbox.split(','))
-          map.addLayer(extentLayer);
-          map.fitBounds(extentLayer.getBounds());
-        }
-      }
-
-      // Is there an existing extent from a previous search?
-      function setPreviousExtent() {
-        previous_extent = module._getParameterByName('ext_prev_extent');
-        if (previous_extent) {
-          coords = previous_extent.split(',');
-          map.fitBounds([[coords[1], coords[0]], [coords[3], coords[2]]]);
-        } else {
-          if (!previous_bbox){
-              map.fitBounds(module.options.default_extent);
-          }
-        }
-      }
-
-      // Reset map view
-      function resetMap() {
-        L.Util.requestAnimFrame(map.invalidateSize, map, !1, map._container);
-      }
-
-      // Add the loading class and submit the form
-      function submitForm() {
-        setTimeout(function() {
-          form.submit();
-        }, 800);
-      }
+      map.fitBounds(module.options.default_extent);
     }
   }
 });
