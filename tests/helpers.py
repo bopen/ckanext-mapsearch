@@ -24,6 +24,10 @@ def get_result_stats(driver):
             'too_big': int(too_big.text)
     }
 
+def reload_datasets(driver):
+    driver.find_element_by_css_selector('#keyword_clear_button').click()
+    wait_for_ajaxes_to_complete(driver)
+
 def wait_for_ajaxes_to_complete(driver):
     try:
         # we have to wait for the page to refresh, the last thing that seems to be updated is the title

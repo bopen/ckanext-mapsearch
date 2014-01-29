@@ -39,4 +39,3 @@ class TestExtents(unittest.TestCase):
         selected_result_panels = self.driver.find_elements_by_css_selector(".dataset_result_panel.selected")
         self.assertEqual(len(selected_result_panels), 1)
         self.assertTrue(selected_result_panels[0].is_displayed())
-

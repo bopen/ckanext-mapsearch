@@ -12,7 +12,7 @@ class TestZoom(unittest.TestCase):
         except:
             self.driver = webdriver.Chrome()
         self.driver.get("http://localhost:5000/mapsearch")
-        self.assertNotEqual(self.driver.title, "www")
+        self.assertIn("Mapsearch", self.driver.title)
         wait_for_ajaxes_to_complete(self.driver)
 
     def tearDown(self):
