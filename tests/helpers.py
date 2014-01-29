@@ -1,5 +1,15 @@
+from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
+
+
+def setUp():
+    try:
+        driver = webdriver.Firefox()
+    except:
+        driver = webdriver.Chrome()
+    driver.get("http://localhost:5000/mapsearch")
+    return driver
 
 def get_result_stats(driver):
     too_small = driver.find_element_by_css_selector(".omitted_too_small span");
