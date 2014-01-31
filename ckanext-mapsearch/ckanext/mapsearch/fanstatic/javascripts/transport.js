@@ -33,16 +33,14 @@ this.ckan.module('mapsearch-transport', function ($, _) {
          * */
         if (q.match(/.+:.+/)) {return;}
         $.ajax({
-          'url': bop.solr_url + '/suggest',
-          'data': {'wt':'json', 'q': q},
+          'url': '/mapsearch/textcomplete',
+          'data': {'q': q},
           'success': function(data) {
-                   if (data.spellcheck.suggestions.length > 0) {
-                       success_handler(data.spellcheck.suggestions[1].suggestion);
-                   }
+                  success_handler(data);
                },
-          'dataType': 'jsonp',
-          'jsonp': 'json.wrf'
+          'dataType': 'json',
         });
+        return
     };
 
     bop._do_request = function (path, success_handler, options) {

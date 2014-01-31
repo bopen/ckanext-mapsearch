@@ -48,6 +48,8 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         controller = 'ckanext.mapsearch.controllers:ViewController'
         map.connect('map_viewer', '/mapsearch',
                     controller=controller, action='show')
+        map.connect('textcomplete', '/mapsearch/textcomplete',
+                    controller=controller, action='textcomplete')
         return map
 
     def before_search(self, search_params):
