@@ -78,25 +78,26 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         area_search = (abs(bbox['maxx'] - bbox['minx']) *
                        abs(bbox['maxy'] - bbox['miny']))
         area_string = 'div(%s,mul(sub(maxy,miny),sub(maxx,minx)))' % area_search
-        scale_dict = {'too_small': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                                    '{!frange incl=false l=%f}%s' % (self.exclude_lower_bound,
-                                                                     area_string)],
-                      'small': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                                '{!frange incl=true l=%f u=%f}%s' % (self.display_lower_bound,
-                                                                     self.exclude_lower_bound,
-                                                                     area_string)],
-                      'normal': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                                 '{!frange incl=true l=%f u=%f}%s' % (self.display_upper_bound,
-                                                                      self.display_lower_bound,
-                                                                      area_string)],
-                      'big': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                              '{!frange incl=true l=%f u=%f}%s' % (self.exclude_upper_bound,
-                                                                   self.display_upper_bound,
-                                                                   area_string)],
-                      'too_big': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                                  '{!frange incl=false u=%f}%s' % (self.exclude_upper_bound,
-                                                                   area_string)],
-                      }
+        scale_dict = {
+            'too_small': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+                          '{!frange incl=false l=%f}%s' % (self.exclude_lower_bound,
+                                                           area_string)],
+            'small': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+                      '{!frange incl=true l=%f u=%f}%s' % (self.display_lower_bound,
+                                                           self.exclude_lower_bound,
+                                                           area_string)],
+            'normal': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+                       '{!frange incl=true l=%f u=%f}%s' % (self.display_upper_bound,
+                                                            self.display_lower_bound,
+                                                            area_string)],
+            'big': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+                    '{!frange incl=true l=%f u=%f}%s' % (self.exclude_upper_bound,
+                                                         self.display_upper_bound,
+                                                         area_string)],
+            'too_big': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
+                        '{!frange incl=false u=%f}%s' % (self.exclude_upper_bound,
+                                                         area_string)],
+        }
         search_params['fq_list'] = scale_dict[scale]
         return search_params
 
