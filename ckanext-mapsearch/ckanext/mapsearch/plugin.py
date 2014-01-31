@@ -4,6 +4,7 @@ import shapely
 
 import ckan.plugins as plugins
 from ckan.lib.helpers import json
+from ckan.lib.base import request
 from ckan.plugins import IRoutes
 from ckan.plugins import IConfigurer
 from ckan.plugins import IPackageController
@@ -57,6 +58,10 @@ class MapsearchPlugin(plugins.SingletonPlugin):
 
         we support only solr and solr-spatial-field backends.
         """
+        # we treat only our own requests:
+        if not request.referer.split("/")[-1] == 'mapsearch':
+            return search_params
+        # only requests with bbox
         if 'ext_bbox' not in search_params['extras'].keys():
             return search_params
         backend = config.get('ckanext.spatial.search_backend', 0)
