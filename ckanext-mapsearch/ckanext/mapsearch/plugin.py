@@ -59,7 +59,9 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         we support only solr and solr-spatial-field backends.
         """
         # we treat only our own requests:
-        if not request.referer.split("/")[-1] == 'mapsearch':
+        if not request.referer or \
+           not "/" in request.referer or \
+           not request.referer.split("/")[-1] == 'mapsearch':
             return search_params
         # only requests with bbox
         if 'ext_bbox' not in search_params['extras'].keys():
@@ -76,7 +78,6 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         bbox = clip_bbox(validate_bbox(search_params['extras'].get('ext_bbox')))
         if backend == 'solr-spatial-field':
             search_params = self._params_for_solr_spatial_field_search(bbox, search_params, scale)
-
         elif backend == 'solr':
             search_params = self._params_for_solr_search(bbox, search_params, scale)
         return search_params
