@@ -19,7 +19,7 @@ this.ckan.module('mapsearch-transport', function ($, _) {
     }
 
     bop.request_datasets = function () {
-        bop._do_request('/api/3/action/package_search');
+        bop._do_request('/api/3/action/package_search', bop.new_search_results, {scale: 'normal'});
         bop.request_datasets_for_scale('too_small');
         bop.request_datasets_for_scale('small');
         bop.request_datasets_for_scale('big');
@@ -43,12 +43,20 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         return
     };
 
+    var setupSpinner = function (scale) {
+        var spinner = $('#search_spinner_prototype').clone();
+        spinner.attr('id', 'search_spinner_' + scale);
+        spinner.show();
+        var cont = (scale == 'normal' ? $('.normal_scale_count') : $('.omitted_' + scale)).find("span")
+        cont.html(spinner)
+        return spinner.show();
+    };
+
     bop._do_request = function (path, success_handler, options) {
-        // TODO: cover AJAX-error case
-        var q = $('#keyword_search_input').val();
-        var bound_string = $('#ext_bbox').val();
-        success_handler = success_handler || bop.new_search_results;
-        var params = '?q=' + q + '&ext_bbox=' + bound_string
+        var q = $('#keyword_search_input').val(),
+            bound_string = $('#ext_bbox').val(),
+            params = '?q=' + q + '&ext_bbox=' + bound_string,
+            spinner = setupSpinner(options.scale).show();
         if (options && options.scale) params += '&ext_scale=' + options.scale;
         if (options && typeof options.rows == 'number') {
             params += '&rows=' + options.rows;
@@ -57,11 +65,14 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         }
         $.get(path + params,
             function (response) {
-                if (!options || !options.scale) {
+                if (options.scale == 'normal') {
                     bop.current_results = response.result;
                 }
                 success_handler(response);
-            }
-        );
+            })
+        .always(function (e) {
+                    spinner.hide();
+                })
+        .fail(function (e){alert("search failed\n", e)});
     };
 });
