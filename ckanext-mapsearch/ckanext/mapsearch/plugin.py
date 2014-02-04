@@ -1,7 +1,6 @@
 from logging import getLogger
 
-import shapely
-
+from shapely.geometry import asShape, polygon
 import ckan.plugins as plugins
 from ckan.lib.helpers import json
 from ckan.lib.base import request
@@ -26,11 +25,16 @@ class MapsearchPlugin(plugins.SingletonPlugin):
     plugins.implements(IRoutes, inherit=True)
     plugins.implements(IConfigurer, inherit=True)
     plugins.implements(IPackageController, inherit=True)
-    exclude_upper_bound = float(config.get('ckanext.mapsearch.exclude_upper_bound', 0.03))
-    display_upper_bound = float(config.get('ckanext.mapsearch.display_upper_bound', 0.8))
-    display_lower_bound = float(config.get('ckanext.mapsearch.display_lower_bound', 70))
-    exclude_lower_bound = float(config.get('ckanext.mapsearch.exclude_lower_bound', 2500))
-    # intersecting areas count as relevant if they are completely inside an extended bbox
+    exclude_upper_bound = float(
+        config.get('ckanext.mapsearch.exclude_upper_bound', 0.03))
+    display_upper_bound = float(
+        config.get('ckanext.mapsearch.display_upper_bound', 0.8))
+    display_lower_bound = float(
+        config.get('ckanext.mapsearch.display_lower_bound', 70))
+    exclude_lower_bound = float(
+        config.get('ckanext.mapsearch.exclude_lower_bound', 2500))
+    # intersecting areas count as relevant if they are completely inside an
+    # extended bbox.
     # this multiplier defines the extent:
     # 1 => 4 times bigger
     # 2 => 9 times bigger
@@ -75,11 +79,14 @@ class MapsearchPlugin(plugins.SingletonPlugin):
                                    supported_backends))
         scale = search_params['extras'].get('ext_scale', 'normal')
         # solr-spatial-field backend requires clipped coordinates
-        bbox = clip_bbox(validate_bbox(search_params['extras'].get('ext_bbox')))
+        raw_bbox = search_params['extras'].get('ext_bbox')
+        bbox = clip_bbox(validate_bbox(raw_bbox))
         if backend == 'solr-spatial-field':
-            search_params = self._params_for_solr_spatial_field_search(bbox, search_params, scale)
+            search_params = self._params_for_solr_spatial_field_search(
+                bbox, search_params, scale)
         elif backend == 'solr':
-            search_params = self._params_for_solr_search(bbox, search_params, scale)
+            search_params = self._params_for_solr_search(
+                bbox, search_params, scale)
         return search_params
 
     def _params_for_solr_search(self, bbox, search_params, scale):
@@ -88,50 +95,58 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         area_string = 'div(%s,mul(sub(maxy,miny),sub(maxx,minx)))' % area_search
         scale_dict = {
             'too_small': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                          '{!frange incl=false l=%f}%s' % (self.exclude_lower_bound,
-                                                           area_string)],
+                          '{!frange incl=false l=%f}%s' %
+                          (self.exclude_lower_bound, area_string)],
             'small': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                      '{!frange incl=true l=%f u=%f}%s' % (self.display_lower_bound,
-                                                           self.exclude_lower_bound,
-                                                           area_string)],
+                      '{!frange incl=true l=%f u=%f}%s' %
+                      (self.display_lower_bound, self.exclude_lower_bound,
+                       area_string)],
             'normal': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                       '{!frange incl=true l=%f u=%f}%s' % (self.display_upper_bound,
-                                                            self.display_lower_bound,
-                                                            area_string)],
+                       '{!frange incl=true l=%f u=%f}%s' %
+                       (self.display_upper_bound, self.display_lower_bound,
+                        area_string)],
             'big': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                    '{!frange incl=true l=%f u=%f}%s' % (self.exclude_upper_bound,
-                                                         self.display_upper_bound,
-                                                         area_string)],
+                    '{!frange incl=true l=%f u=%f}%s' %
+                    (self.exclude_upper_bound, self.display_upper_bound,
+                     area_string)],
             'too_big': ['{!frange incl=false l=0 u=1}%s' % search_params['bf'],
-                        '{!frange incl=false u=%f}%s' % (self.exclude_upper_bound,
-                                                         area_string)],
+                        '{!frange incl=false u=%f}%s' %
+                        (self.exclude_upper_bound, area_string)],
         }
         search_params['fq_list'] = scale_dict[scale]
         return search_params
 
-    def _params_for_solr_spatial_field_search(self, bbox, search_params, scale):
+    def _params_for_solr_spatial_field_search(self, bbox,
+                                              search_params, scale):
         search_params['fq_list'] = []
-        scale_bool_dict = {'too_small': '+spatial_geom:"IsWithin({minx} {miny} {maxx} {maxy})"',
-                           'small': '+spatial_geom:"IsWithin({minx} {miny} {maxx} {maxy})"',
-                           'normal': '+spatial_geom:"Intersects({minx} {miny} {maxx} {maxy})"',
-                           'big': '+spatial_geom:"Intersects({minx} {miny} {maxx} {maxy})"',
-                           'too_big': '+spatial_geom:"Contains({minx} {miny} {maxx} {maxy})"'}
-        search_area = abs(bbox['maxx'] - bbox['minx']) * abs(bbox['maxy'] - bbox['miny'])
+        scale_bool_dict = {
+            'too_small': '+spatial_geom:"IsWithin({minx} {miny} {maxx} {maxy})"',
+            'small': '+spatial_geom:"IsWithin({minx} {miny} {maxx} {maxy})"',
+            'normal': '+spatial_geom:"Intersects({minx} {miny} {maxx} {maxy})"',
+            'big': '+spatial_geom:"Intersects({minx} {miny} {maxx} {maxy})"',
+            'too_big': '+spatial_geom:"Contains({minx} {miny} {maxx} {maxy})"'
+        }
+        search_area = abs(bbox['maxx'] - bbox['minx']) * \
+            abs(bbox['maxy'] - bbox['miny'])
         area_prop_string = "div({0},spatial_area)".format(search_area)
         scale_prop_dict = {
-            'too_small': '{!frange incl=false l=%f}%s' % (self.exclude_lower_bound,
-                                                          area_prop_string),
-            'small':  '{!frange incl=false l=%f u=%f}%s' % (self.display_lower_bound,
-                                                            self.exclude_lower_bound,
-                                                            area_prop_string),
-            'normal': '{!frange incl=false l=%f u=%f}%s' % (self.display_upper_bound,
-                                                            self.display_lower_bound,
-                                                            area_prop_string),
-            'big':  '{!frange incl=false l=%f u=%f}%s' % (self.exclude_upper_bound,
-                                                          self.display_upper_bound,
-                                                          area_prop_string),
-            'too_big':  '{!frange incl=false u=%f}%s' % (self.exclude_upper_bound,
-                                                         area_prop_string)
+            'too_small': '{!frange incl=false l=%f}%s' %
+            (self.exclude_lower_bound, area_prop_string),
+
+            'small':  '{!frange incl=false l=%f u=%f}%s' %
+            (self.display_lower_bound, self.exclude_lower_bound,
+                area_prop_string),
+
+            'normal': '{!frange incl=false l=%f u=%f}%s' %
+            (self.display_upper_bound, self.display_lower_bound,
+                area_prop_string),
+
+            'big':  '{!frange incl=false l=%f u=%f}%s' %
+            (self.exclude_upper_bound, self.display_upper_bound,
+                area_prop_string),
+
+            'too_big':  '{!frange incl=false u=%f}%s' %
+            (self.exclude_upper_bound, area_prop_string)
         }
 
         search_params['fq_list'].append(scale_bool_dict[scale].format(
@@ -139,8 +154,10 @@ class MapsearchPlugin(plugins.SingletonPlugin):
             maxx=bbox['maxx'], maxy=bbox['maxy']))
         search_params['fq_list'].append(scale_prop_dict[scale])
         if scale == 'normal':
-            width_buffer = (bbox['maxx'] - bbox['minx']) * self.buffer_mult * 0.5
-            height_buffer = (bbox['maxy'] - bbox['miny']) * self.buffer_mult * 0.5
+            width_buffer = (bbox['maxx'] - bbox['minx']) * \
+                self.buffer_mult * 0.5
+            height_buffer = (bbox['maxy'] - bbox['miny']) * \
+                self.buffer_mult * 0.5
             extended_bbox = {'minx': bbox['minx'] - width_buffer,
                              'miny': bbox['miny'] - height_buffer,
                              'maxx': bbox['maxx'] + width_buffer,
@@ -156,11 +173,13 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         """sets the area of a polygon for *solr-spatial-field* backend"""
         log.debug('start mapsearch index')
         backend = config.get('ckanext.spatial.search_backend', 0)
-        if pkg_dict.get('extras_spatial', None) and backend == 'solr-spatial-field':
+        if pkg_dict.get('extras_spatial', None) and \
+           backend == 'solr-spatial-field':
             try:
                 geometry = json.loads(pkg_dict['extras_spatial'])
             except ValueError, e:
-                log.error('Geometry not valid GeoJSON, not indexing: {0}'.format(e))
+                msg = 'Geometry not valid GeoJSON, not indexing: {0}'.format(e)
+                log.error(msg)
                 return pkg_dict
             area = None
 
@@ -179,14 +198,14 @@ class MapsearchPlugin(plugins.SingletonPlugin):
                 else:
                     # Check if coordinates are defined counter-clockwise,
                     # otherwise we'll get wrong results from Solr
-                    lr = shapely.geometry.polygon.LinearRing(geometry['coordinates'][0])
+                    lr = polygon.LinearRing(geometry['coordinates'][0])
                     if not lr.is_ccw:
                         lr.coords = list(lr.coords)[::-1]
-                    polygon = shapely.geometry.polygon.Polygon(lr)
-                    area = polygon.area
+                    poly = polygon.Polygon(lr)
+                    area = poly.area
 
             if not area:
-                shape = shapely.geometry.asShape(geometry)
+                shape = asShape(geometry)
                 if not shape.is_valid:
                     log.error('Wrong geometry, not indexing')
                     return pkg_dict
