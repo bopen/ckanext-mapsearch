@@ -14,13 +14,13 @@ this.ckan.module('mapsearch-result_navigation', function ($, _) {
                 return;
             }
             bop.result_nav.update_ui();
-            bop.display_search_results();
+            bop.display_search_results({keep_small: true});
         });
 
         $('.navigation_number').click(function () {
             bop.result_nav.current_page = Number($(this).data('idx')) - 1;
             bop.result_nav.update_ui();
-            bop.display_search_results();
+            bop.display_search_results({keep_small: true});
         });
     };
 

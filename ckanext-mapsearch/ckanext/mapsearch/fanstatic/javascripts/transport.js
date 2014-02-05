@@ -78,5 +78,6 @@ this.ckan.module('mapsearch-transport', function ($, _) {
     bop.reset_gui_after_load = function (spinner) {
         spinner && spinner.hide();
         $('.displayed').removeClass('displayed');
+        bop.small_extents_are_displayed = false;
     };
 });

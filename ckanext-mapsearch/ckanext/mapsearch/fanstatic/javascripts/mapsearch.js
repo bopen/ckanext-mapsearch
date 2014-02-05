@@ -13,7 +13,7 @@ this.ckan.module('mapsearch', function ($, _) {
         fillColor: '#F06F64',
         fillOpacity: 0.1
       },
-      default_extent: [[49, 20], [40, 5]]
+      default_extent: [[47, 20], [36, 5]]
     },
     template: {
       buttons: [
@@ -68,7 +68,6 @@ this.ckan.module('mapsearch', function ($, _) {
       var extentLayer;
       var previous_box;
       var previous_extent;
-      var is_exanded = true;
       var should_zoom = true;
       var form = $("#dataset-search");
       var move_counter = 0;

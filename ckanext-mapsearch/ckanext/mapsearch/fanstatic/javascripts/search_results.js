@@ -31,7 +31,7 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
         }
       });
     };
-    bop.display_search_results = function () {
+    bop.display_search_results = function (options) {
         var idx = bop.result_nav.current_page,
             pp = bop.results_per_page,
             to_show = bop.current_results.results.slice(idx * pp, (idx + 1) * pp),
@@ -41,7 +41,9 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
         $('.normal_scale_count span').text(bop.current_results.count);
         bop.result_layer.eachLayer(function (layer) {
             var props = layer.feature.properties;
-            if (!props.mapsearch || props.mapsearch != 'small') {
+            if (options && options.keep_small && props.mapsearch && props.mapsearch == 'small') {
+                return;
+            } else {
                 bop.result_layer.removeLayer(layer);
             };
         });

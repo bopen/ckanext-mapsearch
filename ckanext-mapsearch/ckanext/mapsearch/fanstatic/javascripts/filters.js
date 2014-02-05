@@ -6,8 +6,8 @@ this.ckan.module('mapsearch-filters', function ($, _) {
             $('#filter_panel').toggle();
             bop.adjust_result_panel_container_height();
         });
-        $('#filter_panel').on('click', '.filter_toggle', function () {
-            var ele = $(this),
+        var handle_filter_click = function (target) {
+            var ele = $(target),
                 filter = ele.data('filter'),
                 input = $('#keyword_search_input'),
                 current_q = input.val();
@@ -21,6 +21,12 @@ this.ckan.module('mapsearch-filters', function ($, _) {
                 ele.addClass('on');
             }
             bop.request_datasets();
+        }
+        $('#result_panel_container').on('click', '.filter_toggle', function () {
+            handle_filter_click(this);
+        });
+        $('#filter_panel').on('click', '.filter_toggle', function () {
+            handle_filter_click(this);
         });
     };
     bop.update_filter_panel = function () {

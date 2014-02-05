@@ -51,9 +51,13 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
             list_item_proto = tag_list_container.find('.list_item').clone();
             tag_list_container.empty();
             $.each(result.tags, function(idx, tag) {
-                var list_item = list_item_proto.clone();
-                list_item.find('a').attr('href', '/dataset?tags=' + tag.display_name).text(tag.display_name);
+                var list_item = list_item_proto.clone(),
+                    filter_string = "tags:" + tag.display_name;
+                list_item.find('a').data('filter', filter_string).text(tag.display_name);
                 tag_list_container.append(list_item);
+                if (bop.filters.indexOf(filter_string) !== -1) {
+                    list_item.find('a').addClass('on');
+                }
             });
         } else {
             panel.find('.result_tag_list').remove();
