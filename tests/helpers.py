@@ -11,30 +11,38 @@ def setUp():
     driver.get("http://localhost:5000/mapsearch")
     return driver
 
+
+def display_javascript_notice(driver, message):
+    driver.execute_script('bop.display_message("{0}");'.format(message))
+    return True
+
+
 def get_result_stats(driver):
-    too_small = driver.find_element_by_css_selector(".omitted_too_small span");
-    small = driver.find_element_by_css_selector(".omitted_small span");
-    displayed = driver.find_element_by_css_selector(".normal_scale_count span");
-    big = driver.find_element_by_css_selector(".omitted_big span");
-    too_big = driver.find_element_by_css_selector(".omitted_too_big span");
+    too_small = driver.find_element_by_css_selector(".omitted_too_small span")
+    small = driver.find_element_by_css_selector(".omitted_small span")
+    displayed = driver.find_element_by_css_selector(".normal_scale_count span")
+    big = driver.find_element_by_css_selector(".omitted_big span")
+    too_big = driver.find_element_by_css_selector(".omitted_too_big span")
     return {'too_small': int(too_small.text),
             'small': int(small.text),
             'displayed': int(displayed.text),
             'big': int(big.text),
             'too_big': int(too_big.text)
-    }
+            }
+
 
 def reload_datasets(driver):
     driver.find_element_by_css_selector('#keyword_clear_button').click()
     wait_for_ajaxes_to_complete(driver)
 
+
 def wait_for_ajaxes_to_complete(driver):
     try:
-        # we have to wait for the page to refresh, the last thing that seems to be updated is the title
+        # we have to wait for the page to refresh, the last thing that seems to
+        # be updated is the title
         WebDriverWait(driver, 5).until(
             lambda driver: driver.execute_script('return jQuery.active;') == 0
         )
     except TimeoutException:
         print "ajax calls longer than 5 seconds"
     return True
-
