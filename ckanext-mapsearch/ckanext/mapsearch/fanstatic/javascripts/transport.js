@@ -71,8 +71,12 @@ this.ckan.module('mapsearch-transport', function ($, _) {
                 success_handler(response);
             })
         .always(function (e) {
-                    spinner.hide();
+                    bop.reset_gui_after_load(spinner);
                 })
-        .fail(function (e){alert("search failed\n", e)});
+        .fail(function (e) {bop.display_message("search failed<br/>" + e)});
+    };
+    bop.reset_gui_after_load = function (spinner) {
+        spinner && spinner.hide();
+        $('.displayed').removeClass('displayed');
     };
 });
