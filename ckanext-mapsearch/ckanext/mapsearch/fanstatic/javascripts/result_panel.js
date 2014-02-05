@@ -102,9 +102,12 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
             id = elem.attr('id');
         }
         $('.dataset_result_panel').removeClass("selected");
-        bop.result_layer.eachLayer(function(l){
+        bop.result_layer.eachLayer(function(layer){
             try {
-                l.setStyle(bop.result_style);
+                var props = layer.feature.properties;
+                if (!props.mapsearch || props.mapsearch != 'small') {
+                    layer.setStyle(bop.result_style);
+                }
             } catch(err) {}
         });
         elem.addClass("selected");

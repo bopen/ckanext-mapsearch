@@ -40,7 +40,10 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
         container.find('.dataset_result_panel').remove();
         $('.normal_scale_count span').text(bop.current_results.count);
         bop.result_layer.eachLayer(function (layer) {
-            bop.result_layer.removeLayer(layer);
+            var props = layer.feature.properties;
+            if (!props.mapsearch || props.mapsearch != 'small') {
+                bop.result_layer.removeLayer(layer);
+            };
         });
         $.each(to_show, function (idx, result) {
             bop.add_extent_to_map(result);
