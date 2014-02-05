@@ -34,11 +34,16 @@
     {% resource 'ckanext-spatial/spatial_query' %}
     {% resource 'mapsearch_js/javascripts/setup.js' %}
     {% resource 'mapsearch_js/javascripts/result_panel.js' %}
+    {% resource 'mapsearch_js/javascripts/message.js' %}
 {% endblock %}
 
 {% block page %}
     {% block search_app %}
         <div id="all">
+          <div class="message" id="mapsearch_flash" style="display:inline;">
+            <div class="alert fade in error" id="message_prototype" style="display:none;">
+            </div>
+          </div>
           <div id="left_column">
             <div id="dataset-search" style="display:block"></div>
               <div class="left_panel" id="query_panel" style="display:block">
