@@ -61,6 +61,10 @@
     width: 1.3em;
     height: 1.3em;
 }
+.scale_counter.omitted_small span.displayed {
+    background-color: #e2ffff;
+}
+
 .scale_counter.omitted_small span {
     border-radius: 2em;
     width: 1.7em;
