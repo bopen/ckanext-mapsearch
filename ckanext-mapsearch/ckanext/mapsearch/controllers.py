@@ -14,6 +14,8 @@ log = logging.getLogger(__name__)
 class ViewController(BaseController):
     def show(self):
         c.solr_url = config['solr_url']
+        c.initial_map_extent = config.get(
+            'ckanext.mapsearch.initial_map_extent', "false")
         return plugins.toolkit.render('blank_search_app.html')
 
     def textcomplete(self):

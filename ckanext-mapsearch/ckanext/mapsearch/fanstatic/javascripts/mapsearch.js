@@ -13,7 +13,7 @@ this.ckan.module('mapsearch', function ($, _) {
         fillColor: '#F06F64',
         fillOpacity: 0.1
       },
-      default_extent: [[47, 20], [36, 5]]
+      default_extent:  bop.initial_map_extent
     },
     template: {
       buttons: [
@@ -103,7 +103,7 @@ this.ckan.module('mapsearch', function ($, _) {
       var onEachFeature = function  (feature, layer) {
           if (feature.properties.mapsearch && feature.properties.mapsearch == 'small') {
               return;
-          };
+          }
           if (feature.properties && feature.properties.id) {
               layer.on({'click':
                   function () {
@@ -154,5 +154,5 @@ this.ckan.module('mapsearch', function ($, _) {
 
       map.fitBounds(module.options.default_extent);
     }
-  }
+  };
 });
