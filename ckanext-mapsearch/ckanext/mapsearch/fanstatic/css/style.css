@@ -113,7 +113,7 @@ a:hover {
 }
 
 .descreet_help {
-  color: #999;
+  color: #999!important;
   line-height: 1em;
   font-weight: bold;
   font-size: 10px;

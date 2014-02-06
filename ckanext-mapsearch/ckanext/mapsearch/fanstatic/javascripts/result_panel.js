@@ -42,9 +42,10 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
         panel.attr('id', result.id);
         var title_link = panel.find('.title_link');
         title_link.text(result.title);
-        title_link.attr('href', "/dataset/" + result.id);
-        title_link.attr('title', _("go_to_detail_page"));
-        panel.find('.notes').text(result.notes);
+        var dataset_url = "/dataset/" + result.id;
+        title_link.attr('href', dataset_url);
+        title_link.attr('title', "go to detail page");
+        panel.find('.notes').html(truncate_notes(result.notes, dataset_url));
         panel.find('.license').text(result.license_title);
         if (result.tags && result.tags.length > 0) {
             var tag_list_container = panel.find('.result_tag_list');
@@ -90,6 +91,18 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
         panel.find('.modified_at').text(new Date(result.metadata_modified).toDateString());
         panel.show();
         return panel;
+    };
+
+    var truncate_notes = function (notes, url) {
+        var limit = 80,
+            split = notes.split(" ");
+        if (split.length <= limit) {
+            return split.join(" ");
+        } else {
+            var base = split.slice(0, limit).join(" ");
+            return base + " ... <a class='descreet_help' href='" + url +
+                          "' target='_blank'>(see full notes here)</a>";
+        }
     };
 
     bop.insert_result_panel = function (panel) {
