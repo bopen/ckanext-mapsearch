@@ -40,7 +40,7 @@ def wait_for_ajaxes_to_complete(driver):
     try:
         # we have to wait for the page to refresh, the last thing that seems to
         # be updated is the title
-        WebDriverWait(driver, 5).until(
+        WebDriverWait(driver, 10).until(
             lambda driver: driver.execute_script('return jQuery.active;') == 0
         )
     except TimeoutException:
