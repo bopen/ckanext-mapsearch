@@ -164,52 +164,7 @@
               <div id="map-container"></div>
             </div>
           </div>
-        <div id="filter_help_window" style="display:none;">
-          <h3>Filtering</h3>
-          <p>
-            you can use faceted search as explained <a href="http://lucene.apache.org/core/3_6_0/queryparsersyntax.html#Fields"><b>here.</b></a>
-          </p>
-          <p>
-          In a nutshell it allows you to add facets to your query like this:<br/>
-          </p>
-          <p><code>title:water</code> - 
-          will find datasets that have water in the title<br />
-          </p>
-          <p><code>title:water OR notes:respons*</code> -  will find the above datasets <b>plus</b> others that must have at least one word in their descriptions which starts with <i>respons.</i><br/><br />
-          </p>
-          available fields are:
-          <table class="table">
-            <tr>
-              <thead>
-                <th>fieldname</th><th>explanation</th><th>example</th>
-              </thead>
-            </tr>
-            <tr>
-              <td>title</td><td>title</td><td>title:Cilento</td>
-            </tr>
-            <tr>
-              <td>notes</td><td>description</td><td>notes:environmental</td>
-            </tr>
-            <tr>
-              <td>tags</td><td>tags</td><td>tags:"government-funded research"</td>
-            </tr>
-            <tr>
-              <td>res_format</td><td>file format of contained resources</td><td>res_format:csv</td>
-            </tr>
-            <tr>
-              <td>license_id</td>
-              <td>License: see <b><a href="http://licenses.opendefinition.org/licenses/groups/ckan.json">here</a></b> for the default ids.<br/>
-                <small>(this instance might also use different licenses or only a subset of those)</small>
-              </td>
-              <td>license_id:cc-by-sa</td>
-            </tr>
-            <tr>
-              <td>text</td><td>catchall field for all text fields</td><td>text:tif</td>
-            </tr>
-          </table>
-          <p>
-          for improved usability there are helper links in the <b><a href="javascript:" onclick="$('#filter_panel').show();">filter panel</a></b> to easily assemble filters for <i>tags</i> and <i>formats</i>.
-        </div>
+          {% snippet "snippets/filter_help.html" %}
         </div>
     {% endblock %}
 {% endblock %}
