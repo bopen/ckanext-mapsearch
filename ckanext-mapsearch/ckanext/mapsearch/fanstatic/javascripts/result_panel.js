@@ -139,8 +139,9 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
         bop.update_result_list_presentation_mode();
     };
 
-    $('#result_panel_container').on('mouseenter', ".dataset_result_panel", function () {
+    $('#result_panel_container').on('click', ".dataset_result_panel", function (e) {
         bop.select_result($(this));
+        e.preventDefault();
     });
 
     bop.update_result_list_presentation_mode = function () {
