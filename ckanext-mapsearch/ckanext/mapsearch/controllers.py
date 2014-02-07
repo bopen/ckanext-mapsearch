@@ -26,4 +26,8 @@ class ViewController(BaseController):
         suggest = SearchHandler(conn, '/suggest')
         q = request.params["q"]
         res = suggest(q=q, wt='json')
-        return json.dumps(res.spellcheck['suggestions'][q]['suggestion'])
+        if q in res.spellcheck['suggestions'].keys():
+            payload = res.spellcheck['suggestions'][q]['suggestion']
+        else:
+            payload = []
+        return json.dumps(payload)
