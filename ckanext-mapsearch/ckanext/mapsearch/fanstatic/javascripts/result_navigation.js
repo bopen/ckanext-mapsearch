@@ -25,8 +25,15 @@ this.ckan.module('mapsearch-result_navigation', function ($, _) {
     };
 
     bop.result_nav.update_ui = function () {
+        var current_result_start_idx = bop.result_nav.current_page * bop.results_per_page + 1,
+            current_result_end_idx = Math.min(current_result_start_idx +
+                                                 bop.results_per_page - 1,
+                                              bop.current_results.results.length);
         $('.navigation_number').removeClass('selected');
         $('#nav_' + (bop.result_nav.current_page + 1)).addClass('selected');
+
+        $('#current_range_display').text(String(current_result_start_idx) + " - " +
+                                         current_result_end_idx);
     };
 
     // this method should be called when new results arrive from the server
@@ -34,6 +41,7 @@ this.ckan.module('mapsearch-result_navigation', function ($, _) {
         var results = bop.current_results.results;
         bop.result_nav.current_page = 0;
         bop.result_nav.num_of_pages = Math.ceil(bop.current_results.count / bop.results_per_page);
+        $('#current_total_display').text(results.length);
         $('#navigation_links').hide();
         $('.navigation_number').hide();
         if (results.length > bop.results_per_page) {

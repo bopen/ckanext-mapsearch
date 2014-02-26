@@ -2,11 +2,11 @@
     position: absolute;
     position:fixed !important;
     position:absolute;
-    background-color:#F1F1F1;
-    top:0;
-    right:0;
-    bottom:0;
-    left:0;
+    background-color: #F1F1F1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 a {
@@ -100,7 +100,7 @@ a:hover {
 }
 
 .dataset_result_panel.selected {
-    background-color: #e2e9e9;
+    background-color: #DBE0E8;
 }
 
 .dataset_result_panel span {
@@ -148,12 +148,12 @@ a:hover {
 #navigation_links {
     text-align:center;
     height: 1em;
-    margin: 5px 0px 0px;;
+    margin: 5px 0px 5px;
     padding: 2px;
-    font-size: 16pt;
+    font-size: 13pt;
 }
 .navigation_number {
-    padding: 0px 3px 0px;;
+    padding: 0px 3px 0px;
 }
 
 .navigation_number.selected {
@@ -184,7 +184,7 @@ a:hover {
     margin-right: 0;
 }
 .result_panel_label {
-  width:30%;
+  width: 35%;
   float: left;
 }
 .result_panel_data {

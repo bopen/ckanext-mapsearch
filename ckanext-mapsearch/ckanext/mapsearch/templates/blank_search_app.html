@@ -1,6 +1,5 @@
 {# a blank template (without the central (bootstrap) area)  #}
 {% extends "base.html" %}
-{% import 'macros/form.html' as form %}
 
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
@@ -65,23 +64,13 @@
           <div id="left_column">
             <div id="dataset-search" style="display:block"></div>
               <div class="left_panel" id="query_panel" style="display:block">
-                <textarea id="keyword_search_input" rows="2" wrap="soft"></textarea>
+                <textarea id="keyword_search_input"
+                  placeholder="search... (keyword and filters, <return> to submit)"
+                          rows="2" wrap="soft"></textarea>
                 <button id="keyword_clear_button">clear - reset</button>
                 <button id="filter_toggler">toggle filters</button>
                 <a href="javascript:" id="filter_help_opener">filter help</a>
                 <br/>
-                <div id="navigation_links" style="display:none;">
-                  <a href="javascript:" data-dir="previous" class="navigation_arrow" id="navigation_previous">&lt;-</a> 
-                  <a href="javascript:" data-idx="1" class="navigation_number" id="nav_1" "style="display:none">1</a> 
-                  <a href="javascript:" data-idx="2" class="navigation_number" id="nav_2" style="display:none">2</a> 
-                  <a href="javascript:" data-idx="3" class="navigation_number" id="nav_3" style="display:none">3</a> 
-                  <a href="javascript:" data-idx="4" class="navigation_number" id="nav_4" style="display:none">4</a> 
-                  <a href="javascript:" data-idx="5" class="navigation_number" id="nav_5" style="display:none">5</a> 
-                  <a href="javascript:" data-idx="6" class="navigation_number" id="nav_6" style="display:none">6</a> 
-                  <a href="javascript:" data-idx="7" class="navigation_number" id="nav_7" style="display:none">7</a> 
-                  <a href="javascript:" data-idx="8" class="navigation_number" id="nav_8" style="display:none">8</a> 
-                  <a href="javascript:" data-dir="next" class="navigation_arrow" id="navigation_next">-></a>
-                </div>
                 <div title="click for more info">
                   <a id="scale_toggler" href="javascript:">stats |</a> 
                   <a id="scale_hider" href="javascript:">toggle visibility</a>
@@ -137,6 +126,23 @@
                 <div style="clear:both;"></div>
                 <div class="descreet_help">result in 5 scales
                   <small>(click on small and big.)</small>
+                </div>
+                <div id="navigation_links" style="display:none;">
+                  <a href="javascript:" data-dir="previous" class="navigation_arrow" id="navigation_previous">&lt;-</a> 
+                  <a href="javascript:" data-idx="1" class="navigation_number" id="nav_1" "style="display:none">1</a> 
+                  <a href="javascript:" data-idx="2" class="navigation_number" id="nav_2" style="display:none">2</a> 
+                  <a href="javascript:" data-idx="3" class="navigation_number" id="nav_3" style="display:none">3</a> 
+                  <a href="javascript:" data-idx="4" class="navigation_number" id="nav_4" style="display:none">4</a> 
+                  <a href="javascript:" data-idx="5" class="navigation_number" id="nav_5" style="display:none">5</a> 
+                  <a href="javascript:" data-idx="6" class="navigation_number" id="nav_6" style="display:none">6</a> 
+                  <a href="javascript:" data-idx="7" class="navigation_number" id="nav_7" style="display:none">7</a> 
+                  <a href="javascript:" data-idx="8" class="navigation_number" id="nav_8" style="display:none">8</a> 
+                  <a href="javascript:" data-dir="next" class="navigation_arrow" id="navigation_next">-></a>
+                </div>
+                <div class="descreet_help">
+                  showing
+                  <span id="current_range_display"></span> of
+                  <span id="current_total_display"></span>
                 </div>
                 <div id="filter_panel" class="left_panel" style="display:none;">
                   <div class="filter_group" id="organization_filter_container" title="organization filter" style="display:none;">
