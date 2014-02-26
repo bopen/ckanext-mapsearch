@@ -26,11 +26,11 @@ class MapsearchPlugin(plugins.SingletonPlugin):
     plugins.implements(IConfigurer, inherit=True)
     plugins.implements(IPackageController, inherit=True)
     exclude_upper_bound = float(
-        config.get('ckanext.mapsearch.exclude_upper_bound', 0.03))
+        config.get('ckanext.mapsearch.exclude_upper_bound', 0.02))
     display_upper_bound = float(
-        config.get('ckanext.mapsearch.display_upper_bound', 0.8))
+        config.get('ckanext.mapsearch.display_upper_bound', 1.0))
     display_lower_bound = float(
-        config.get('ckanext.mapsearch.display_lower_bound', 70))
+        config.get('ckanext.mapsearch.display_lower_bound', 50))
     exclude_lower_bound = float(
         config.get('ckanext.mapsearch.exclude_lower_bound', 2500))
     # intersecting areas count as relevant if they are completely inside an
