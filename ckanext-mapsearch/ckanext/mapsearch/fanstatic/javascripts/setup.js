@@ -18,7 +18,7 @@ this.ckan.module('mapsearch-setup', function ($, _) {
                                                  fillOpacity: 0.499});
         $('#keyword_search_input').autocomplete({
            delay: 500,
-           select: bop.request_datasets,
+           close: bop.request_datasets,
            source: function(current, display_response) {
                bop.request_completion(display_response);
            },
