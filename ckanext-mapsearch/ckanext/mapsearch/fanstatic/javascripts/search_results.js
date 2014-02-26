@@ -36,9 +36,10 @@ this.ckan.module('mapsearch-search_results', function ($, _) {
             pp = bop.results_per_page,
             to_show = bop.current_results.results.slice(idx * pp, (idx + 1) * pp),
             container = $('#result_panel_container'),
+            total = bop.current_results.count,
             layer, geoJSON, extents;
         container.find('.dataset_result_panel').remove();
-        $('.normal_scale_count span').text(bop.current_results.count);
+        $('.normal_scale_count span').text(total <= bop.max_result_display ? total : String(bop.max_result_display) + "+");
         bop.result_layer.eachLayer(function (layer) {
             var props = layer.feature.properties;
             if (options && options.keep_small && props.mapsearch && props.mapsearch == 'small') {
