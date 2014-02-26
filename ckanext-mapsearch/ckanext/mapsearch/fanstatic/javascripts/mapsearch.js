@@ -86,7 +86,7 @@ this.ckan.module('mapsearch', function ($, _) {
       });
 
       // OK map time
-      map = ckan.commonLeafletMap('map-container', this.options.map_config, {attributionControl: false});
+      map = ckan.commonLeafletMap('map-container', this.options.map_config, {attributionControl: true});
 
       map.addControl(new L.Control.Scale({imperial:false, maxWidth: 200}));
 
