@@ -110,14 +110,7 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
         container.append(panel);
     };
 
-    bop.select_result = function (elem) {
-        var id;
-        if (typeof elem == 'string') { 
-            id = elem;
-            elem = $('#' + elem);
-        } else {
-            id = elem.attr('id');
-        }
+    bop.unselect_all_results = function () {
         $('.dataset_result_panel').removeClass("selected");
         bop.result_layer.eachLayer(function(layer){
             try {
@@ -127,6 +120,17 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
                 }
             } catch(err) {}
         });
+        bop.update_result_list_presentation_mode();
+    }
+    bop.select_result = function (elem) {
+        var id;
+        if (typeof elem == 'string') { 
+            id = elem;
+            elem = $('#' + elem);
+        } else {
+            id = elem.attr('id');
+        }
+        bop.unselect_all_results()
         elem.addClass("selected");
         elem.get(0).scrollIntoView();
         bop.result_layer.eachLayer(
@@ -140,8 +144,15 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
     };
 
     $('#result_panel_container').on('click', ".dataset_result_panel", function (e) {
-        bop.select_result($(this));
-        e.preventDefault();
+        if (e.target.tagName != 'A') {
+            if ($(e.target).parents('.dataset_result_panel.selected').length == 0) {
+                bop.select_result($(this));
+                e.preventDefault();
+            } else {
+                bop.unselect_all_results();
+            }
+        }
+        ev = e;
     });
 
     bop.update_result_list_presentation_mode = function () {
