@@ -2,7 +2,7 @@
 var bop;
 
 this.ckan.module('mapsearch-transport', function ($, _) {
-    var scale_row_dict = {small: false, too_small:0, big:false, too_big:0};
+    var scale_row_dict = {small: 9999, too_small:0, big:false, too_big:0};
     bop.request_datasets_for_scale = function (scale) {
          bop._do_request('/api/3/action/package_search',
                           function(response) {
@@ -19,7 +19,9 @@ this.ckan.module('mapsearch-transport', function ($, _) {
     }
 
     bop.request_datasets = function () {
-        bop._do_request('/api/3/action/package_search', bop.new_search_results, {scale: 'normal'});
+        bop._do_request('/api/3/action/package_search',
+                        bop.new_search_results,
+                        {scale: 'normal'});
         bop.request_datasets_for_scale('too_small');
         bop.request_datasets_for_scale('small');
         bop.request_datasets_for_scale('big');
@@ -47,7 +49,9 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         var spinner = $('#search_spinner_prototype').clone();
         spinner.attr('id', 'search_spinner_' + scale);
         spinner.show();
-        var cont = (scale == 'normal' ? $('.normal_scale_count') : $('.omitted_' + scale)).find("span")
+        var cont = (scale == 'normal' ?
+                    $('.normal_scale_count') :
+                    $('.omitted_' + scale)).find("span")
         cont.html(spinner)
         return spinner.show();
     };
@@ -61,7 +65,14 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         if (options && typeof options.rows == 'number') {
             params += '&rows=' + options.rows;
         } else {
-            params += '&rows=' + bop.dataset_query_limit;
+            // normal scale
+            if (options.scale == 'normal') {
+                if (bop.dataset_query_limit) {
+                    params += '&rows=' + bop.dataset_query_limit;
+                } else {
+                    params += '&rows=9999';
+                }
+            }
         }
         $.get(path + params,
             function (response) {

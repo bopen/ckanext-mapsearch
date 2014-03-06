@@ -26,7 +26,7 @@
         bop.results_per_page = 8;
         bop.max_num_of_pages = 8; // do not exceed 8
         bop.max_result_display = bop.results_per_page * bop.max_num_of_pages
-        bop.dataset_query_limit = bop.max_result_display + 1;
+        bop.dataset_query_limit = false; //bop.max_result_display + 1;
         try {
             bop.initial_map_extent = {{ c.initial_map_extent }} ;
             if (bop.initial_map_extent && typeof(bop.initial_map_extent[0][0]) !== 'number') {

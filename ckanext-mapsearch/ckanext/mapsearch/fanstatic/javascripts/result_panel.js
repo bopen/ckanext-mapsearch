@@ -37,18 +37,19 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
     if (typeof bop === 'undefined') {bop = {}}
 
     bop.make_result_panel = function (result, options) {
-        var list_item_proto;
-        panel = $('#result_panel_prototype').clone();
+        var list_item_proto,
+            panel = $('#result_panel_prototype').clone(),
+            title_link, dataset_url, tag_list_container, resources_list_container;
         panel.attr('id', result.id);
-        var title_link = panel.find('.title_link');
+        title_link = panel.find('.title_link');
         title_link.text(result.title);
-        var dataset_url = "/dataset/" + result.id;
+        dataset_url = "/dataset/" + result.id;
         title_link.attr('href', dataset_url);
         title_link.attr('title', "go to detail page");
         panel.find('.notes').html(truncate_notes(result.notes, dataset_url));
         panel.find('.license').text(result.license_title);
         if (result.tags && result.tags.length > 0) {
-            var tag_list_container = panel.find('.result_tag_list');
+            tag_list_container = panel.find('.result_tag_list');
             list_item_proto = tag_list_container.find('.list_item').clone();
             tag_list_container.empty();
             $.each(result.tags, function(idx, tag) {
@@ -63,20 +64,16 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
         } else {
             panel.find('.result_tag_list').remove();
         }
-        if (result.groups && result.groups.length > 0) {
-            //TODO: implement groups
-            panel.find('.groups_container').remove();
-            console.log("NotImplementedError: groups present but not shown");
-        } else {
-            panel.find('.groups_container').remove();
-        }
+        //TODO: implement groups
+        panel.find('.groups_container').remove();
         if (result.resources && result.resources.length > 0) {
-            var resources_list_container = panel.find('.result_resources_list');
+            resources_list_container = panel.find('.result_resources_list');
             list_item_proto = resources_list_container.find('.list_item').clone();
             resources_list_container.empty();
             $.each(result.resources, function(idx, resource) {
                 var list_item = list_item_proto.clone();
-                list_item.find('a').attr('href', resource.url).text(resource.name || "unnamed file");
+                list_item.find('a').attr('href', resource.url)
+                    .text(resource.name || "unnamed file");
                 resources_list_container.append(list_item);
             });
         } else {
@@ -87,8 +84,10 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
         } else {
             panel.find('.organization_container').remove();
         }
-        panel.find('.created_at').text(new Date(result.metadata_created).toDateString());
-        panel.find('.modified_at').text(new Date(result.metadata_modified).toDateString());
+        panel.find('.created_at').text(
+            new Date(result.metadata_created).toDateString());
+        panel.find('.modified_at').text(
+            new Date(result.metadata_modified).toDateString());
         panel.show();
         return panel;
     };

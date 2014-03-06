@@ -48,7 +48,9 @@ this.ckan.module('mapsearch-result_navigation', function ($, _) {
         bop.result_nav.current_page = 0;
         bop.result_nav.num_of_pages = Math.ceil(
             Math.min(bop.current_results.count, bop.max_result_display) / bop.results_per_page);
-        $('#current_total_display').text(results.length <= bop.max_result_display ? results.length : String(bop.max_result_display) + "+");
+        $('#current_total_display').text(
+            bop.current_results.count <= bop.max_result_display ?
+            bop.current_results.count : String(bop.max_result_display) + "+");
         $('#navigation_links').hide();
         $('.navigation_number').hide();
         if (results.length > bop.results_per_page) {
