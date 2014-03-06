@@ -1,6 +1,7 @@
 import unittest
 from helpers import wait_for_ajaxes_to_complete
 from helpers import display_javascript_notice
+from time import sleep
 from helpers import reload_datasets
 
 from selenium import webdriver
@@ -30,6 +31,7 @@ class TestExtents(unittest.TestCase):
         extent = self.driver.find_element_by_css_selector(
             ".leaflet-clickable")
         extent.click()
+        sleep(0.5)
         selected_extents = self.driver.find_elements_by_css_selector(
             "path[fill='#FFFFFF']")
         self.assertEqual(len(selected_extents), 1)
@@ -42,6 +44,7 @@ class TestExtents(unittest.TestCase):
         self.assertEqual(len(selected_result_panels), 0)
         extent = self.driver.find_element_by_css_selector(".leaflet-clickable")
         extent.click()
+        sleep(0.5)
         selected_result_panels = self.driver.find_elements_by_css_selector(
             ".dataset_result_panel.selected")
         self.assertEqual(len(selected_result_panels), 1)

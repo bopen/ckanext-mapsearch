@@ -23,7 +23,7 @@ class TestResultPanels(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def test_hover_result_panel(self):
+    def test_select_result_panel(self):
         reload_datasets(self.driver)
         selected_result_panels = self.driver.find_elements_by_css_selector(
             ".dataset_result_panel.selected")
@@ -34,7 +34,7 @@ class TestResultPanels(unittest.TestCase):
         all_result_panels = self.driver.find_elements_by_css_selector(
             ".dataset_result_panel")
         target_panel = all_result_panels[1]
-        self.driver.execute_script("$('#{0}').trigger('mouseenter')".format(
+        self.driver.execute_script("$('#{0}').trigger('click')".format(
             target_panel.get_attribute('id')))
         selected_extents = self.driver.find_elements_by_css_selector(
             "path[fill='#FFFFFF']")
