@@ -105,10 +105,23 @@ this.ckan.module('mapsearch', function ($, _) {
               return;
           }
           if (feature.properties && feature.properties.id) {
-              layer.on({'click':
-                  function () {
-                      bop.select_result(feature.properties.id);
-                  },
+              var already_clickedTimeout, already_clicked;
+              layer.on({
+                'click':
+                    function (e) {
+                        if (already_clicked) {
+                            already_clicked = false; // reset
+                            bop.map.setView(e.latlng, map.getZoom() + 1);
+                            clearTimeout(already_clickedTimeout);
+                        } else {
+                            already_clicked=true;
+                            already_clickedTimeout = setTimeout(
+                                function(){
+                                    already_clicked=false;
+                                    bop.select_result(feature.properties.id);
+                                }, 220); // <-- dblclick tolerance here
+                        }
+                    },
               });
           }
       };
