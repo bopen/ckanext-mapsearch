@@ -100,7 +100,8 @@ a:hover {
 }
 
 .dataset_result_panel.selected {
-    background-color: #DBE0E8;
+    background-color: #ECF1F9;
+    /*DBE0E8;*/
 }
 
 .dataset_result_panel span {
@@ -191,6 +192,12 @@ a:hover {
   width: 70%;
 }
 
+.result_resources_list li {
+    background-color: #FBFFEF;
+    border-radius: 3px;
+    padding: 1px 2px;
+}
+
 .tag_list {
     margin: 0;
     list-style: none;
@@ -199,6 +206,7 @@ a:hover {
 
 .tag_list li {
   display: inline-block;
+  list-style: none;
   margin-right: 5px;
 }
 
