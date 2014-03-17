@@ -1,3 +1,5 @@
 eventual_setup.txt
 ckanext-mapsearch/ckanext_mapsearch.egg-info/
 .aliases
+README.html
+ckanext-mapsearch/build.py
