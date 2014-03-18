@@ -8,7 +8,7 @@ ABOUT
 Mapsearch is a CKAN-extension to add an immersive, map-centered search to the *CKAN spatial extension* `(ckanext-spatial) <https://github.com/ckan/ckanext-spatial>`_.
 
 .. image:: https://bitbucket.org/bopen/ckanext-mapsearch/raw/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_shot.png
-    :alt: Screenshot
+    :alt: Full screenshot
     :align: center
 
 
@@ -17,7 +17,16 @@ FEATURES
 
 Its main distinguishing factor is the scale-awareness of the search-engine.
 
-It let's you see how many results there are on different scales for the same geographic area of interest, by using an extra area field during indexing. see `this <#schema>`_ paragraph below.
+This scale-awareness lets you see how many results there are on 5 different scales for the same geographic area of interest, by using an extra area field during indexing. see `this <#schema>`_ paragraph below.
+
+.. image:: https://bitbucket.org/bopen/ckanext-mapsearch/raw/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_scales.png
+    :alt: screenshot scales
+    :align: center
+
+DEMO
+====
+
+see a working demo on `bopen.eu <http://ckan.bopen.eu/mapsearch>`_.
 
 INSTALLATION
 ============
