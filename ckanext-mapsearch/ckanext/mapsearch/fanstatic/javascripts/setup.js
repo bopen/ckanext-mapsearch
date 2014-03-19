@@ -16,6 +16,7 @@ this.ckan.module('mapsearch-setup', function ($, _) {
         bop.highlightStyle = $.extend({}, bop.result_style,
                                                 {fillColor: '#FFFFFF',
                                                  fillOpacity: 0.499});
+
         $('#keyword_search_input').autocomplete({
            delay: 500,
            close: bop.request_datasets,
@@ -24,12 +25,14 @@ this.ckan.module('mapsearch-setup', function ($, _) {
            },
            minLength: 2,
         });
+
         $('#keyword_search_input').keypress(function( event ) {
             if (event.which == 13) {
                 event.preventDefault();
                 $("#keyword_search_input").autocomplete("close");
                 bop.request_datasets();
             }});
+
         $('#keyword_clear_button').click(function( event ) {
             if (bop.extentLayer) {
                 bop.map.removeLayer(bop.extentLayer);
@@ -41,6 +44,7 @@ this.ckan.module('mapsearch-setup', function ($, _) {
             $('#filter_panel').hide();
             bop.request_datasets();
         });
+
         bop.setup_filter_panel();
         bop.result_nav.setup();
         if (bop.query_on_load) {
@@ -48,20 +52,24 @@ this.ckan.module('mapsearch-setup', function ($, _) {
                            bop.map.fireEvent('moveend');
             }, 500);
         }
+
         $('#filter_help_window').dialog({
             autoOpen:false, modal:false,
             title:"Faceted Search", buttons: [{
                 text: "OK", click: function() {$( this ).dialog( "close" ); }}],
             width:'66%'});
+
         $('#filter_help_opener').click(function (event) {
             $('#filter_help_window').dialog("open");
             event.preventDefault();
             return false;
         });
+
         $('#scale_toggler').click(function (event) {
             $('#scale_help').toggle();
             $('#scale_help_icons').toggle();
         });
+
         $('#scale_hider').click(function (event) {
             var cont = $('#scale_container');
             if (cont.is(':visible')) {
@@ -87,8 +95,11 @@ this.ckan.module('mapsearch-setup', function ($, _) {
         $('#map-container').css({'height':  bop.y_full + 'px'});
         bop.adjust_result_panel_container_height();
     };
+
     bop.adjust_result_panel_container_height = function () {
-        $('#result_panel_container').css({'height': bop.y_full - ($('#query_panel').height() + 20) + 'px',
-                                          'overflow': 'auto'});
+        $('#result_panel_container').css({
+            'height': bop.y_full - ($('#query_panel').height() + 20) + 'px',
+            'overflow': 'auto'
+        });
     };
 });

@@ -1,4 +1,5 @@
 import json
+import logging
 
 import pylons.config as config
 import ckan.plugins as plugins
@@ -6,7 +7,6 @@ from ckan.lib.base import BaseController, request, c
 from ckan.lib.search.common import make_connection
 from solr import SearchHandler
 
-import logging
 
 log = logging.getLogger(__name__)
 

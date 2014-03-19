@@ -8,7 +8,6 @@ from ckan.plugins import IRoutes
 from ckan.plugins import IConfigurer
 from ckan.plugins import IPackageController
 from ckanext.spatial.lib import validate_bbox
-
 from pylons import config
 
 log = getLogger(__name__)
@@ -170,8 +169,8 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         return search_params
 
     def before_index(self, pkg_dict):
-        """sets the area of a polygon for *solr-spatial-field* backend"""
-        log.debug('start mapsearch index')
+        """sets the area of a polygon for the *solr-spatial-field* backend"""
+        log.debug('mapsearch index: new dataset')
         backend = config.get('ckanext.spatial.search_backend', 0)
         if pkg_dict.get('extras_spatial', None) and \
            backend == 'solr-spatial-field':
@@ -207,7 +206,7 @@ class MapsearchPlugin(plugins.SingletonPlugin):
             if not area:
                 shape = asShape(geometry)
                 if not shape.is_valid:
-                    log.error('Wrong geometry, not indexing')
+                    log.error('Invalid geometry, not indexing')
                     return pkg_dict
                 area = shape.area
 

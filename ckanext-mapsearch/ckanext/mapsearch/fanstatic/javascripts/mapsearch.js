@@ -63,20 +63,19 @@ this.ckan.module('mapsearch', function ($, _) {
     },
 
     _onReady: function() {
-      var module = this;
-      var map;
-      var extentLayer;
-      var previous_box;
-      var previous_extent;
-      var should_zoom = true;
-      var form = $("#dataset-search");
-      var move_counter = 0;
+      var module = this,
+          map,
+          extentLayer,
+          previous_box,
+          previous_extent,
+          should_zoom = true,
+          form = $("#dataset-search"),
+          buttons,
+          move_counter = 0;
       // CKAN 2.1
       if (!form.length) {
           form = $(".search-form");
       }
-
-      var buttons;
 
       // Add necessary fields to the search form if not already created
       $(['ext_bbox', 'ext_prev_extent']).each(function(index, item){

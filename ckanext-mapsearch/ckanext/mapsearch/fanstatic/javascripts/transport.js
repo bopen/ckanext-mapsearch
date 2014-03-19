@@ -1,4 +1,3 @@
-
 var bop;
 
 this.ckan.module('mapsearch-transport', function ($, _) {
@@ -86,6 +85,7 @@ this.ckan.module('mapsearch-transport', function ($, _) {
                 })
         .fail(function (e) {bop.display_message("search failed<br/>" + e)});
     };
+
     bop.reset_gui_after_load = function (spinner) {
         spinner && spinner.hide();
         $('.displayed').removeClass('displayed');

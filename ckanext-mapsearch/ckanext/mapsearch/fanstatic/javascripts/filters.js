@@ -29,9 +29,11 @@ this.ckan.module('mapsearch-filters', function ($, _) {
             handle_filter_click(this);
         });
     };
+
     bop.update_filter_panel = function () {
         var tags = {},
-            formats = {};
+            formats = {},
+            num_sort, tag_container, format_container;
         $.each(bop.current_results.results, function (idx, result) {
              if (result.tags.length > 0) {
                  $.each(result.tags, function (iidx, tag) {
@@ -49,16 +51,17 @@ this.ckan.module('mapsearch-filters', function ($, _) {
                  });
              }
         });
-        var num_sort = function(a,b) {return a[0] - b[0];};
+        num_sort = function(a,b) {return a[0] - b[0];};
         tags = $.map(tags, function (value, key) {return [[value, key]];}).sort(num_sort).reverse();
         formats = $.map(formats, function (value, key) {return [[value, key]];}).sort(num_sort).reverse();
-        var tag_container = $('#tags_filter_container');
+        tag_container = $('#tags_filter_container');
         tag_container.empty();
-        var format_container = $('#formats_filter_container');
+        format_container = $('#formats_filter_container');
         format_container.empty();
         create_links(tags, "tags", tag_container);
         create_links(formats, "res_format", format_container);
     };
+
     var create_links = function (items, filter_name, container) {
         $.each(items.slice(0, bop.num_filters_to_display), function (idx, item) {
             if (item[1] === '') {return;}
