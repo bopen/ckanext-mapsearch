@@ -1,12 +1,14 @@
 import unittest
-
 from time import sleep
+
 from selenium import webdriver
 from selenium.common.exceptions import ElementNotVisibleException
 #from selenium.webdriver.support import expected_conditions as EC
 #from selenium.webdriver.common.keys import Keys
+
 from helpers import display_javascript_notice
 from helpers import wait_for_ajaxes_to_complete
+from tests import MAPSEARCH_INSTANCE_URL
 
 
 class TestPageload(unittest.TestCase):
@@ -21,8 +23,7 @@ class TestPageload(unittest.TestCase):
         self.driver.quit()
 
     def test_page_load(self):
-        self.driver.get("http://localhost:5000/mapsearch")
-        self.assertIn("Mapsearch", self.driver.title)
+        self.driver.get(MAPSEARCH_INSTANCE_URL)
         display_javascript_notice(
             self.driver, "running test: {0}".format(self._testMethodName))
         wait_for_ajaxes_to_complete(self.driver)

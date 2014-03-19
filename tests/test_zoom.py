@@ -1,8 +1,10 @@
 import unittest
+from selenium import webdriver
+from time import sleep
+
 from helpers import wait_for_ajaxes_to_complete
 from helpers import get_result_stats, display_javascript_notice
-
-from selenium import webdriver
+from tests import MAPSEARCH_INSTANCE_URL
 
 
 class TestZoom(unittest.TestCase):
@@ -12,8 +14,7 @@ class TestZoom(unittest.TestCase):
             self.driver = webdriver.Firefox()
         except:
             self.driver = webdriver.Chrome()
-        self.driver.get("http://localhost:5000/mapsearch")
-        self.assertIn("Mapsearch", self.driver.title)
+        self.driver.get(MAPSEARCH_INSTANCE_URL)
         display_javascript_notice(
             self.driver, "running test: {0}".format(self._testMethodName))
         wait_for_ajaxes_to_complete(self.driver)
@@ -30,6 +31,7 @@ class TestZoom(unittest.TestCase):
         zoom_button.click()
         #print self.driver.execute_script('return jQuery.active;')
         wait_for_ajaxes_to_complete(self.driver)
+        sleep(1)
         later_stats = get_result_stats(self.driver)
         self.assertNotEqual(prior_stats, later_stats)
         return

@@ -88,4 +88,13 @@ the extension needs an extra field in the solr index, add the following line to 
 TESTS
 =====
 
-there a few basic selenium webdriver tests in the `tests` folder.
+there a few basic selenium webdriver tests in the `tests` folder.  
+
+NB: 
+  - You will need full working instance with a  minimum of data to run the tests. 
+  - The tests assume you have an instance running on 'http://localhost:5000/mapsearch'. 
+    However, you can override this by setting the *environment variable* MAPSEARCH_INSTANCE_URL appropriately.
+
+    .. code:: bash
+
+        export MAPSEARCH_INSTANCE_URL="http://ckan.bopen.eu/mapsearch"

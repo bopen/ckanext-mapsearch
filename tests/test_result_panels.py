@@ -5,6 +5,7 @@ from selenium import webdriver
 from helpers import wait_for_ajaxes_to_complete
 from helpers import display_javascript_notice
 from helpers import reload_datasets
+from tests import MAPSEARCH_INSTANCE_URL
 
 
 class TestResultPanels(unittest.TestCase):
@@ -14,8 +15,7 @@ class TestResultPanels(unittest.TestCase):
             self.driver = webdriver.Firefox()
         except:
             self.driver = webdriver.Chrome()
-        self.driver.get("http://localhost:5000/mapsearch")
-        self.assertIn("Mapsearch", self.driver.title)
+        self.driver.get(MAPSEARCH_INSTANCE_URL)
         display_javascript_notice(
             self.driver, "running test: {0}".format(self._testMethodName))
         wait_for_ajaxes_to_complete(self.driver)
