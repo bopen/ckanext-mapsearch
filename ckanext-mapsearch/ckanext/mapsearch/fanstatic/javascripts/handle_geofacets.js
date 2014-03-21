@@ -53,7 +53,6 @@ this.ckan.module('mapsearch-geofacets', function ($, _) {
                     }
                 }
                 bop.during_geolookup = false;
-                bop.map.fireEvent('moveend');
             }
         );
     }
