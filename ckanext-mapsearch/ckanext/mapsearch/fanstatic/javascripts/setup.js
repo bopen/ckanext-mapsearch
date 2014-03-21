@@ -29,9 +29,16 @@ this.ckan.module('mapsearch-setup', function ($, _) {
         $('#keyword_search_input').keypress(function( event ) {
             if (event.which == 13) {
                 event.preventDefault();
+                var q = $('#keyword_search_input').val(),
+                    geofacets = bop.extract_geofacet(q),
+                    geofacet = geofacets &&  geofacets.length && geofacets[0];
+                if (geofacet) {
+                   bop.geolookup_name(geofacet.split(":")[1]);
+                }
                 $("#keyword_search_input").autocomplete("close");
                 bop.request_datasets();
-            }});
+            }
+        });
 
         $('#keyword_clear_button').click(function( event ) {
             if (bop.extentLayer) {

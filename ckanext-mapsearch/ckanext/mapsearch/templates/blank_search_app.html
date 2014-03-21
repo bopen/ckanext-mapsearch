@@ -47,6 +47,7 @@
     {% resource 'mapsearch_js/javascripts/result_navigation.js' %}
     {% resource 'mapsearch_js/javascripts/search_results.js' %}
     {% resource 'mapsearch_js/javascripts/transport.js' %}
+    {% resource 'mapsearch_js/javascripts/handle_geofacets.js' %}
     {% resource 'mapsearch_js/css/style.css' %}
     {% resource 'mapsearch_js/css/jquery_ui_min.css' %}
     {% resource 'ckanext-spatial/spatial_query' %}
@@ -68,6 +69,16 @@
                 <textarea id="keyword_search_input"
                   placeholder="search... (keyword and filters, <return> to submit)"
                           rows="2" wrap="soft"></textarea>
+                <div id="geo_alternative_panel" style="display:none;">
+                  geo alternatives 
+                     <a href="javascript:void(0)"
+                        onclick="$('#geo_alternative_panel').hide()">(close)</a>
+                  <ul class="tag_list">
+                    <li>
+                       <a href="javascript:void(0)"></a>
+                    </li>
+                  </ul>
+                </div>
                 <button id="keyword_clear_button">clear - reset</button>
                 <button id="filter_toggler">toggle filters</button>
                 <a href="javascript:" id="filter_help_opener">filter help</a>

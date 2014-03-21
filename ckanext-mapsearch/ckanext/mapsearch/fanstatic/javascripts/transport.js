@@ -18,6 +18,9 @@ this.ckan.module('mapsearch-transport', function ($, _) {
     }
 
     bop.request_datasets = function () {
+        if (bop.during_geolookup) {
+            return;
+        }
         bop._do_request('/api/3/action/package_search',
                         bop.new_search_results,
                         {scale: 'normal'});
@@ -41,7 +44,7 @@ this.ckan.module('mapsearch-transport', function ($, _) {
                },
           'dataType': 'json',
         });
-        return
+        return;
     };
 
     var setupSpinner = function (scale) {
@@ -50,13 +53,14 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         spinner.show();
         var cont = (scale == 'normal' ?
                     $('.normal_scale_count') :
-                    $('.omitted_' + scale)).find("span")
-        cont.html(spinner)
+                    $('.omitted_' + scale)).find("span");
+        cont.html(spinner);
         return spinner.show();
     };
 
     bop._do_request = function (path, success_handler, options) {
-        var q = $('#keyword_search_input').val(),
+        // remove geo:<place> parts, they are already handled at this point
+        var q = $('#keyword_search_input').val().replace(/geo:[^ ]+/, ""),
             bound_string = $('#ext_bbox').val(),
             params = '?q=' + q + '&ext_bbox=' + bound_string,
             spinner = setupSpinner(options.scale).show();
