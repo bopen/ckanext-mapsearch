@@ -60,7 +60,7 @@ this.ckan.module('mapsearch-transport', function ($, _) {
 
     bop._do_request = function (path, success_handler, options) {
         // remove geo:<place> parts, they are already handled at this point
-        var q = $('#keyword_search_input').val().replace(/geo:[^ ]+/, ""),
+        var q = $('#keyword_search_input').val().replace(/geo:("[^"]*"|[^ ]+)/, ""),
             bound_string = $('#ext_bbox').val(),
             params = '?q=' + q + '&ext_bbox=' + bound_string,
             spinner = setupSpinner(options.scale).show();

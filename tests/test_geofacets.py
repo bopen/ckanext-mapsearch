@@ -6,7 +6,7 @@ from selenium import webdriver
 
 from helpers import wait_for_ajaxes_to_complete, get_result_stats
 from helpers import display_javascript_notice, search_for_text
-from helpers import get_map_bounds
+from helpers import get_map_bounds, get_displayed_title_word
 from tests import MAPSEARCH_INSTANCE_URL
 
 
@@ -24,6 +24,33 @@ class TestExtents(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+
+    def test_geofacets_with_spaces_change_map_extent(self):
+        search_for_text(self.driver, 'geo:italy')
+        sleep(0.2)
+        italy_bounds = get_map_bounds(self.driver)
+        italy_total = get_result_stats(self.driver)['normal']
+        search_for_text(self.driver, 'geo:"emilia romagna"')
+        sleep(0.2)
+        emilia_bounds = get_map_bounds(self.driver)
+        emilia_total = get_result_stats(self.driver)['normal']
+        self.assertLess(italy_bounds['_southWest']['lat'], emilia_bounds['_southWest']['lat'])
+        self.assertLess(italy_bounds['_southWest']['lng'], emilia_bounds['_southWest']['lng'])
+        self.assertGreater(italy_total, emilia_total)
+
+    def test_geofacets_with_spaces_works_with_other_facets(self):
+        search_for_text(self.driver, 'geo:"emilia romagna"')
+        sleep(0.2)
+        emilia_total = get_result_stats(self.driver)['normal']
+        title = get_displayed_title_word(self.driver)
+        search_for_text(self.driver, 'geo:"emilia romagna" title:' + title)
+        sleep(0.2)
+        title_total = get_result_stats(self.driver)['normal']
+        self.assertGreater(emilia_total, title_total)
+        search_for_text(self.driver, 'title:' + title + ' geo:"emilia romagna"')
+        sleep(0.6)
+        title_total2 = get_result_stats(self.driver)['normal']
+        self.assertEqual(title_total, title_total2)
 
     def test_geofacet_changes_map_extent1(self):
         search_for_text(self.driver, "geo:capranica")

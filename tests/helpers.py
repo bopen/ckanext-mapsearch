@@ -1,4 +1,5 @@
 import json
+from random import choice
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -14,6 +15,14 @@ def setUp():
     driver.get(MAPSEARCH_INSTANCE_URL)
     return driver
 
+
+def get_displayed_title_word(driver):
+    found_titles = sum(
+        [t.text.split() for t in driver.find_elements_by_class_name("title_link")],
+        [])
+    #title = next(x for x in found_titles[2].text.split() if len(x) > 4)
+    title_words = filter(lambda cand: len(cand) > 4, found_titles)
+    return choice(title_words)
 
 def display_javascript_notice(driver, message):
     driver.execute_script('bop.display_message("{0}");'.format(message))

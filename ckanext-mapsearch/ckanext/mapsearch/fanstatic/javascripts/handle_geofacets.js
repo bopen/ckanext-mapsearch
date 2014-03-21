@@ -2,7 +2,7 @@ var bop;
 
 this.ckan.module('mapsearch-geofacets', function ($, _) {
     bop.extract_geofacet = function (q) {
-        return q.match(/geo:[^ ]+/);
+        return q.match(/geo:("[^"]*"|[^ ]+)/);
     }
     // looks up a geoname, sets the map to the first entry and puts
     // alternatives in their panel (if there are alternatives)

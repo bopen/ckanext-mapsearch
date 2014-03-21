@@ -33,7 +33,7 @@ this.ckan.module('mapsearch-setup', function ($, _) {
                     geofacets = bop.extract_geofacet(q),
                     geofacet = geofacets &&  geofacets.length && geofacets[0];
                 if (geofacet) {
-                   bop.geolookup_name(geofacet.split(":")[1]);
+                   bop.geolookup_name(geofacet.split(":")[1].replace(/"/g, ""));
                 }
                 $("#keyword_search_input").autocomplete("close");
                 bop.request_datasets();
