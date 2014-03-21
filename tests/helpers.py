@@ -1,3 +1,5 @@
+import json
+
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -17,6 +19,15 @@ def display_javascript_notice(driver, message):
     driver.execute_script('bop.display_message("{0}");'.format(message))
     return True
 
+def search_for_text(driver, text):
+    driver.execute_script("$('#keyword_search_input').attr('value', '')")
+    driver.find_element_by_id("keyword_search_input").send_keys(text + "\n")
+    wait_for_ajaxes_to_complete(driver)
+
+def get_map_bounds(driver):
+    command = "return JSON.stringify(bop.map.getBounds())"
+    in_json = driver.execute_script(command)
+    return json.loads(in_json)
 
 def get_result_stats(driver):
     too_small = driver.find_element_by_css_selector(".omitted_too_small span")

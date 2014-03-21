@@ -5,7 +5,7 @@ from random import choice
 from selenium import webdriver
 
 from helpers import wait_for_ajaxes_to_complete, get_result_stats
-from helpers import display_javascript_notice
+from helpers import display_javascript_notice, search_for_text
 from tests import MAPSEARCH_INSTANCE_URL
 
 
@@ -32,34 +32,32 @@ class TestExtents(unittest.TestCase):
         title_words = filter(lambda cand: len(cand) > 4, found_titles)
         return choice(title_words)
 
-    def _search_for_text(self, text):
-        self.driver.find_element_by_id("keyword_search_input").send_keys(text + "\n")
-        wait_for_ajaxes_to_complete(self.driver)
-
     def _current_total(self):
         return get_result_stats(self.driver)['normal']
 
     def test_search_for_title(self):
-        inital_total = self._current_total()
-        self._search_for_text("title:" + self._get_displayed_title_word())
+        initial_total = self._current_total()
+        search_for_text(self.driver, "title:" + self._get_displayed_title_word())
         searched_total = self._current_total()
-        self.assertNotEqual(inital_total, searched_total)
+        self.assertNotEqual(initial_total, searched_total)
 
     def test_free_text_search(self):
-        inital_total = self._current_total()
-        self._search_for_text(self._get_displayed_title_word())
+        initial_total = self._current_total()
+        search_for_text(self.driver, self._get_displayed_title_word())
         searched_total = self.driver.find_element_by_id("current_total_display").text
-        self.assertNotEqual(inital_total, searched_total)
+        self.assertNotEqual(initial_total, searched_total)
 
     def test_combined_search_for_free_text_and_title(self):
-        inital_total = self._current_total()
+        initial_total = self._current_total()
         first_q = "title:" + self._get_displayed_title_word()
-        self._search_for_text(first_q)
+        search_for_text(self.driver, first_q)
         between_total = self._current_total()
         sleep(1)
-        self._search_for_text(" " + self._get_displayed_title_word())
+        search_for_text(self.driver,
+                        "title:" + self._get_displayed_title_word() + " " + 
+                        self._get_displayed_title_word())
         final_total = self._current_total()
-        self.assertNotEqual(inital_total, between_total)
-        self.assertNotEqual(inital_total, final_total)
-        self.assertTrue(inital_total >= between_total)
+        self.assertNotEqual(initial_total, between_total)
+        self.assertNotEqual(initial_total, final_total)
+        self.assertTrue(initial_total >= between_total)
         self.assertTrue(between_total >= final_total)
