@@ -26,17 +26,25 @@ this.ckan.module('mapsearch-setup', function ($, _) {
            minLength: 2,
         });
 
+        $('#search_submit_button').click(function () {
+            bop.submit_search_handler();
+        });
+
+        bop.submit_search_handler = function () {
+            var q = $('#keyword_search_input').val(),
+                geofacets = bop.extract_geofacet(q),
+                geofacet = geofacets &&  geofacets.length && geofacets[0];
+            if (geofacet) {
+               bop.geolookup_name(geofacet.split(":")[1].replace(/"/g, ""));
+            }
+            $("#keyword_search_input").autocomplete("close");
+            bop.request_datasets();
+        }
+
         $('#keyword_search_input').keypress(function( event ) {
             if (event.which == 13) {
                 event.preventDefault();
-                var q = $('#keyword_search_input').val(),
-                    geofacets = bop.extract_geofacet(q),
-                    geofacet = geofacets &&  geofacets.length && geofacets[0];
-                if (geofacet) {
-                   bop.geolookup_name(geofacet.split(":")[1].replace(/"/g, ""));
-                }
-                $("#keyword_search_input").autocomplete("close");
-                bop.request_datasets();
+                bop.submit_search_handler();
             }
         });
 
@@ -64,10 +72,24 @@ this.ckan.module('mapsearch-setup', function ($, _) {
             autoOpen:false, modal:false,
             title:"Faceted Search", buttons: [{
                 text: "OK", click: function() {$( this ).dialog( "close" ); }}],
-            width:'66%'});
+            width:'66%'}
+        );
 
         $('#filter_help_opener').click(function (event) {
             $('#filter_help_window').dialog("open");
+            event.preventDefault();
+            return false;
+        });
+
+        $('#scale_help_window').dialog({
+            autoOpen:false, modal:false,
+            title:"Scales", buttons: [{
+                text: "OK", click: function() {$( this ).dialog( "close" ); }}],
+            width:'49%'}
+        );
+
+        $('#scale_help_opener').click(function (event) {
+            $('#scale_help_window').dialog("open");
             event.preventDefault();
             return false;
         });
@@ -82,11 +104,11 @@ this.ckan.module('mapsearch-setup', function ($, _) {
             if (cont.is(':visible')) {
                cont.hide();
                $('#scale_toggler').hide();
-               $(this).text("show stats");
+               //$(this).text("show stats");
             } else {
                cont.show();
                $('#scale_toggler').show();
-               $(this).text("hide stats");
+               //$(this).text("hide stats");
             }
         });
     });

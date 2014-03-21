@@ -66,8 +66,8 @@ a:hover {
 }
 .scale_counter.omitted_too_small span {
     border-radius: 1.5em;
-    width: 1.3em;
-    height: 1.3em;
+    width: 1.5em;
+    height: 1.5em;
 }
 .scale_counter.omitted_small span.displayed {
     background-color: #e2e9e9;
@@ -75,26 +75,26 @@ a:hover {
 
 .scale_counter.omitted_small span {
     background-color: #DFCDCD;
-    border-radius: 2em;
+    border-radius: 1.65em;
     width: 1.65em;
     height: 1.65em;
 }
 .scale_counter.normal_scale_count span {
     background-color: #DDDD99;
-    border-radius: 3em;
+    border-radius: 1.8em;
+    width: 1.8em;
+    height: 1.8em;
+}
+.scale_counter.omitted_big span {
+    border-radius: 2em;
     width: 2em;
     height: 2em;
 }
-.scale_counter.omitted_big span {
-    border-radius: 4em;
-    width: 3em;
-    height: 3em;
-}
 
 .scale_counter.omitted_too_big span {
-    border-radius: 4em;
-    width: 4em;
-    height: 4em;
+    border-radius: 2.3em;
+    width: 2.3em;
+    height: 2.3em;
 }
 .dataset_result_panel {
     background-color: #f9f9f9;
@@ -111,9 +111,14 @@ a:hover {
 
 #keyword_search_input {
     overflow-y: auto;
-    width: 100%;
+    width: 91%;
+    min-width:150px;
 }
 
+#filter_help_opener {
+  position: absolute;
+  right: 5px;
+}
 .descreet_help {
   color: #999!important;
   line-height: 1em;

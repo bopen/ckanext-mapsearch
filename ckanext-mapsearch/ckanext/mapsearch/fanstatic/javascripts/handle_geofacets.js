@@ -31,7 +31,13 @@ this.ckan.module('mapsearch-geofacets', function ($, _) {
                 panel.hide();
                 if (res.length > 0) {
                     bb = res[0].boundingbox;
+                    before_bounds = bop.map.getBounds();
                     bop.map.fitBounds([[bb[0], bb[2]], [bb[1], bb[3]]]);
+                    after_bounds = bop.map.getBounds();
+                    if (JSON.stringify(before_bounds) == JSON.stringify(after_bounds)) {
+                        bop.during_geolookup = false;
+                        bop.map.fireEvent('moveend');
+                    }
                     if (res.length > 1) {
                         var list = panel.find('ul'),
                             proto = $('<li>'),

@@ -69,6 +69,7 @@
                 <textarea id="keyword_search_input"
                   placeholder="search... (keyword and filters, <return> to submit)"
                           rows="2" wrap="soft"></textarea>
+                <a href="javascript:void(0)" id="filter_help_opener">?</a>
                 <div id="geo_alternative_panel" style="display:none;">
                   geo alternatives 
                      <a href="javascript:void(0)"
@@ -79,15 +80,37 @@
                     </li>
                   </ul>
                 </div>
-                <button id="keyword_clear_button">clear - reset</button>
-                <button id="filter_toggler">toggle filters</button>
-                <button id="filter_help_opener">help</button>
+                <button id="search_submit_button">Search</button>
+                <button id="keyword_clear_button">Clear & Reset</button>
                 <br/>
+                <a href="javascript:void(0)" id="filter_toggler">refine (filters)</a>
+                <br/>
+                <div id="filter_panel" class="left_panel" style="display:none;">
+                  <div class="filter_group" id="organization_filter_container" title="organization filter" style="display:none;">
+                    <a href="javascript:" class="filter_toggle" data-filter="" id="filter_toggle_proto" style="display:none;">org</a>
+                  </div>
+                  <div class="filter_group" id="groups_filter_container" title="groups filter" style="display:none;">
+                  </div>
+                  <div class="filter_group" id="tags_filter_container" title="tags filter">
+                  </div>
+                  <div class="filter_group" id="formats_filter_container" title="formats filter">
+                  </div>
+                  <div class="filter_group" id="license_filter_container" title="license filter">
+                  </div>
+                </div>
                 <div title="click for more info">
-                  <a id="scale_hider" href="javascript:">hide stats</a>
+                  <a id="scale_hider" href="javascript:">result scales</a>
+                  <small>
+                    <a href="javascript:void(0)" id="scale_help_opener">(?)</a>
+                  </small>
+                  <!--
                   <a id="scale_toggler" href="javascript:">| switch mode</a> 
+                  -->
                 </div>
                 <div id="scale_container">
+                  <div class="descreet_help">result in 5 scales
+                    <small>(click on small to see shapes)</small>
+                  </div>
                   <img id="search_spinner_prototype" style="display:none" src="/spinner.gif"/>
                   <div id="scale_help_icons">
                     <span class="scale_counter omitted_too_small" title="too small for current extent">
@@ -130,9 +153,6 @@
                   </div>
                 </div>
                 <div style="clear:both;"></div>
-                <div class="descreet_help">result in 5 scales
-                  <small>(click on small to see shapes)</small>
-                </div>
                 <div id="navigation_links" style="display:none;">
                   <a href="javascript:" data-dir="previous" class="navigation_arrow" id="navigation_previous">&lt;-</a> 
                   <a href="javascript:" data-idx="1" class="navigation_number" id="nav_1" "style="display:none">1</a> 
@@ -149,19 +169,6 @@
                   showing
                   <span id="current_range_display"></span> of
                   <span id="current_total_display"></span>
-                </div>
-                <div id="filter_panel" class="left_panel" style="display:none;">
-                  <div class="filter_group" id="organization_filter_container" title="organization filter" style="display:none;">
-                    <a href="javascript:" class="filter_toggle" data-filter="" id="filter_toggle_proto" style="display:none;">org</a>
-                  </div>
-                  <div class="filter_group" id="groups_filter_container" title="groups filter" style="display:none;">
-                  </div>
-                  <div class="filter_group" id="tags_filter_container" title="tags filter">
-                  </div>
-                  <div class="filter_group" id="formats_filter_container" title="formats filter">
-                  </div>
-                  <div class="filter_group" id="license_filter_container" title="license filter">
-                  </div>
                 </div>
               </div>
               <div id="dataset-map-attribution">
