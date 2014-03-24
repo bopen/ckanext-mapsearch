@@ -185,6 +185,18 @@ a:hover {
 #result_panel_container article.kv {
     line-height: 0.9em;
 }
+.result_panel_expand_toggler_container {
+    position: relative;
+    right: 5px;
+    text-align: right;
+    display: inline;
+}
+.result_panel_expand_toggler {
+    position: relative;
+    font-size: 25pt;
+    top: 16px;
+    left: 14px;
+}
 
 #right_column {
     margin-left: 23.1%;

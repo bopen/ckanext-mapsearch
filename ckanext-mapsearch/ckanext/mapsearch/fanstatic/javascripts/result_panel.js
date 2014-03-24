@@ -108,17 +108,20 @@ this.ckan.module('mapsearch-result-panel', function ($, _) {
         bop.update_result_list_presentation_mode();
     };
 
-    $('#result_panel_container').on('click', ".dataset_result_panel", function (e) {
-        if (e.target.tagName != 'A') {
-            if ($(e.target).parents('.dataset_result_panel.selected').length == 0) {
-                bop.select_result($(this));
-                e.preventDefault();
-            } else {
-                bop.unselect_all_results();
+    $('#result_panel_container').on(
+        'click',
+        ".dataset_result_panel",
+        function (e) {
+            if (e.target.tagName != 'A' || $(e.target).hasClass("result_panel_expand_toggler")) {
+                if ($(e.target).parents('.dataset_result_panel.selected').length == 0) {
+                    bop.select_result($(this));
+                    e.preventDefault();
+                } else {
+                    bop.unselect_all_results();
+                }
             }
         }
-        ev = e;
-    });
+    );
 
     bop.update_result_list_presentation_mode = function () {
         $('.dataset_result_panel').find(".hide_when_small").hide();
