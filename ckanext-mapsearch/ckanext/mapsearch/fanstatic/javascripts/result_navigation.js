@@ -32,13 +32,18 @@ this.ckan.module('mapsearch-result_navigation', function ($, _) {
                                               total)
         $('.navigation_number').removeClass('selected');
         $('#nav_' + (bop.result_nav.current_page + 1)).addClass('selected');
-
+        current_result_start_idx == 1
+            && $('#navigation_previous').hide()
+            || $('#navigation_previous').show();
+        bop.result_nav.current_page + 1 == bop.result_nav.num_of_pages
+            && $('#navigation_next').hide()
+            || $('#navigation_next').show();
         if (bop.current_results.results.length == 0) {
-          $('#pagination_range_display').hide()
+            $('#pagination_range_display').hide()
         } else {
-          $('#pagination_range_display').show()
-          $('#current_range_display').text(String(current_result_start_idx) + " - " +
-                                         current_result_end_idx);
+            $('#pagination_range_display').show()
+            $('#current_range_display').text(String(current_result_start_idx) + " - " +
+                                             current_result_end_idx);
         }
     };
 
