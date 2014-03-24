@@ -11,6 +11,7 @@ this.ckan.module('mapsearch-geofacets', function ($, _) {
             url = "http://nominatim.openstreetmap.org/search",
             params= {q: name, format: 'json', addressdetails: 0, polygon_json:1};
         bop.during_geolookup = true;
+        bop.must_search_after_geolookup = true;
         $.get(url, params,
             function (res) {
                 var bb;
@@ -31,13 +32,13 @@ this.ckan.module('mapsearch-geofacets', function ($, _) {
                 panel.hide();
                 if (res.length > 0) {
                     bb = res[0].boundingbox;
-                    before_bounds = bop.map.getBounds();
                     bop.map.fitBounds([[bb[0], bb[2]], [bb[1], bb[3]]]);
-                    after_bounds = bop.map.getBounds();
-                    if (JSON.stringify(before_bounds) == JSON.stringify(after_bounds)) {
-                        bop.during_geolookup = false;
-                        bop.map.fireEvent('moveend');
-                    }
+                    setTimeout(function () {
+                        if (bop.must_search_after_geolookup) {
+                            bop.during_geolookup = false;
+                            bop.map.fireEvent('moveend');
+                        }
+                    }, 500)
                     if (res.length > 1) {
                         var list = panel.find('ul'),
                             proto = $('<li>'),

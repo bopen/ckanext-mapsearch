@@ -112,7 +112,6 @@ a:hover {
 #keyword_search_input {
     overflow-y: auto;
     width: 91%;
-    min-width:150px;
 }
 
 #filter_help_opener {
@@ -173,7 +172,9 @@ a:hover {
     left: 1px;
     padding: 0px;
     width: 23%;
+    min-width: 180px;
 }
+
 #result_panel_container {
     overflow: auto;
 }

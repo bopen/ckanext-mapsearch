@@ -21,6 +21,7 @@ this.ckan.module('mapsearch-transport', function ($, _) {
         if (bop.during_geolookup) {
             return;
         }
+        bop.must_search_after_geolookup = false;
         bop._do_request('/api/3/action/package_search',
                         bop.new_search_results,
                         {scale: 'normal'});
