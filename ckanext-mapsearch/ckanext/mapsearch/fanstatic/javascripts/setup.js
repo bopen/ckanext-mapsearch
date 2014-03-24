@@ -68,6 +68,14 @@ this.ckan.module('mapsearch-setup', function ($, _) {
             }, 500);
         }
 
+        $('#about_help_window').dialog({
+            autoOpen:false, modal:false,
+            title:"About Mapsearch", buttons: [{
+                text: "OK", click: function() {$( this ).dialog( "close" ); }}],
+            width:'40%'}
+        );
+
+
         $('#filter_help_window').dialog({
             autoOpen:false, modal:false,
             title:"Faceted Search", buttons: [{

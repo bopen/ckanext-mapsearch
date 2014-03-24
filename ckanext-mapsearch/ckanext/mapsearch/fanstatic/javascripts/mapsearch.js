@@ -1,6 +1,25 @@
 /* Module for handling the strictly map-related functionality
  */
 this.ckan.module('mapsearch', function ($, _) {
+  var HelpControl = L.Control.extend({
+    options: {
+        position: 'topright'
+    },
+    initialize: function (options) {
+        L.Util.setOptions(this, options);
+    },
+
+    onAdd: function (map) {
+        var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar leaflet-control-help');
+        var link = $(L.DomUtil.create('a', 'help-link leaflet-bar-part leaflet-bar-part-top leaflet-bar-part-bottom  leaflet-control-help', container));
+        link.text("?");
+        link.on('click',
+            function (e) {
+              $('#about_help_window').dialog("open");
+        });
+        return container;
+    }
+  });
 
   return {
     options: {
@@ -99,6 +118,9 @@ this.ckan.module('mapsearch', function ($, _) {
           title: 'Draw rectangle'
         },
       }));
+
+      map.addControl(new HelpControl({position: 'topright'}));
+
       var onEachFeature = function  (feature, layer) {
           if (feature.properties.mapsearch && feature.properties.mapsearch == 'small') {
               return;

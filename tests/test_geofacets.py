@@ -44,11 +44,11 @@ class TestExtents(unittest.TestCase):
         emilia_total = get_result_stats(self.driver)['normal']
         title = get_displayed_title_word(self.driver)
         search_for_text(self.driver, 'geo:"emilia romagna" title:' + title)
-        sleep(0.2)
+        sleep(0.6)
         title_total = get_result_stats(self.driver)['normal']
         self.assertGreater(emilia_total, title_total)
         search_for_text(self.driver, 'title:' + title + ' geo:"emilia romagna"')
-        sleep(0.6)
+        sleep(1)
         title_total2 = get_result_stats(self.driver)['normal']
         self.assertEqual(title_total, title_total2)
 

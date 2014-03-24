@@ -229,3 +229,13 @@ a:hover {
   margin-right: 5px;
 }
 
+.leaflet-control-help {
+    padding: 0.5px 3px;
+    background-color: #eee;
+    font-weight: bold;
+    font-size: 10pt;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
