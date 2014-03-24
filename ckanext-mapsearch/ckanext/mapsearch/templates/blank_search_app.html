@@ -69,7 +69,7 @@
                 <textarea id="keyword_search_input"
                   placeholder="search... (keyword and filters, <return> to submit)"
                           rows="2" wrap="soft"></textarea>
-                <a href="javascript:void(0)" id="filter_help_opener">?</a>
+                <a href="javascript:void(0)" id="filter_help_opener" title="see search help">?</a>
                 <div id="geo_alternative_panel" style="display:none;">
                   geo alternatives 
                      <a href="javascript:void(0)"
@@ -83,7 +83,9 @@
                 <button id="search_submit_button">Search</button>
                 <button id="keyword_clear_button">Clear & Reset</button>
                 <br/>
-                <a href="javascript:void(0)" id="filter_toggler">refine (filters)</a>
+                <a href="javascript:void(0)" id="filter_toggler" title="display filters">
+                  refine (filters)
+                </a>
                 <br/>
                 <div id="filter_panel" class="left_panel" style="display:none;">
                   <div class="filter_group" id="organization_filter_container" title="organization filter" style="display:none;">
@@ -101,7 +103,7 @@
                 <div title="click for more info">
                   <a id="scale_hider" href="javascript:">result scales</a>
                   <small>
-                    <a href="javascript:void(0)" id="scale_help_opener">(?)</a>
+                    (<a href="javascript:void(0)" id="scale_help_opener" title="see scale help">?</a>)
                   </small>
                   <!--
                   <a id="scale_toggler" href="javascript:">| switch mode</a> 
