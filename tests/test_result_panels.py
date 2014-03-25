@@ -6,15 +6,16 @@ from helpers import wait_for_ajaxes_to_complete
 from helpers import display_javascript_notice
 from helpers import reload_datasets
 from tests import MAPSEARCH_INSTANCE_URL
+from helpers import get_driver
 
 
 class TestResultPanels(unittest.TestCase):
 
     def setUp(self):
         try:
-            self.driver = webdriver.Firefox()
+            self.driver = get_driver('firefox')
         except:
-            self.driver = webdriver.Chrome()
+            self.driver = get_driver('chrome')
         self.driver.get(MAPSEARCH_INSTANCE_URL)
         display_javascript_notice(
             self.driver, "running test: {0}".format(self._testMethodName))

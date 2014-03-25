@@ -7,15 +7,16 @@ from helpers import wait_for_ajaxes_to_complete, get_result_stats
 from helpers import display_javascript_notice, search_for_text
 from helpers import get_displayed_title_word
 from tests import MAPSEARCH_INSTANCE_URL
+from helpers import get_driver
 
 
 class TestExtents(unittest.TestCase):
 
     def setUp(self):
         try:
-            self.driver = webdriver.Firefox()
+            self.driver = get_driver('firefox')
         except:
-            self.driver = webdriver.Chrome()
+            self.driver = get_driver('chrome')
         self.driver.get(MAPSEARCH_INSTANCE_URL)
         display_javascript_notice(
             self.driver, "running test: {0}".format(self._testMethodName))

@@ -9,15 +9,16 @@ from selenium.common.exceptions import ElementNotVisibleException
 from helpers import display_javascript_notice
 from helpers import wait_for_ajaxes_to_complete
 from tests import MAPSEARCH_INSTANCE_URL
+from helpers import get_driver
 
 
 class TestPageload(unittest.TestCase):
 
     def setUp(self):
         try:
-            self.driver = webdriver.Firefox()
+            self.driver = get_driver('firefox')
         except:
-            self.driver = webdriver.Chrome()
+            self.driver = get_driver('chrome')
 
     def tearDown(self):
         self.driver.quit()
