@@ -1,5 +1,6 @@
 import re
 import unittest
+from time import sleep
 from selenium import webdriver
 
 from helpers import wait_for_ajaxes_to_complete
@@ -24,6 +25,7 @@ class TestTagFilter(unittest.TestCase):
         self.driver.quit()
 
     def test_filter_by_tag(self):
+	sleep(1)
         filters_button = self.driver.find_element_by_css_selector(
             "#filter_toggler")
         tag_links = self.driver.find_elements_by_css_selector(

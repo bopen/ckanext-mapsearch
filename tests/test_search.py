@@ -29,18 +29,23 @@ class TestExtents(unittest.TestCase):
         return get_result_stats(self.driver)['normal']
 
     def test_search_for_title(self):
+	sleep(1)
         initial_total = self._current_total()
         search_for_text(self.driver, "title:" + get_displayed_title_word(self.driver))
+	sleep(1)
         searched_total = self._current_total()
         self.assertNotEqual(initial_total, searched_total)
 
     def test_free_text_search(self):
+	sleep(1)
         initial_total = self._current_total()
         search_for_text(self.driver, get_displayed_title_word(self.driver))
+	sleep(1)
         searched_total = self.driver.find_element_by_id("current_total_display").text
         self.assertNotEqual(initial_total, searched_total)
 
     def test_combined_search_for_free_text_and_title(self):
+	sleep(1)
         initial_total = self._current_total()
         first_q = "title:" + get_displayed_title_word(self.driver)
         search_for_text(self.driver, first_q)

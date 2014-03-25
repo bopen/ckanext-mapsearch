@@ -26,15 +26,19 @@ class TestExtents(unittest.TestCase):
 
     def test_click_extent_selects_it(self):
         reload_datasets(self.driver)
-        selected_extents = self.driver.find_elements_by_css_selector(
-            "path[fill='#FFFFFF']")
+        selected_extents = (self.driver.find_elements_by_css_selector(
+            "path[fill='#FFFFFF']") or
+	    self.driver.find_elements_by_css_selector(
+            "path[fill='#ffffff']"))
         self.assertEqual(len(selected_extents), 0)
         extent = self.driver.find_element_by_css_selector(
             ".leaflet-clickable")
         extent.click()
-        sleep(0.5)
-        selected_extents = self.driver.find_elements_by_css_selector(
-            "path[fill='#FFFFFF']")
+        sleep(1)
+        selected_extents = (self.driver.find_elements_by_css_selector(
+            "path[fill='#FFFFFF']") or
+	    self.driver.find_elements_by_css_selector(
+            "path[fill='#ffffff']"))
         self.assertEqual(len(selected_extents), 1)
         self.assertTrue(selected_extents[0].is_displayed())
 

@@ -16,6 +16,8 @@ def get_driver(which='firefox'):
         driver = webdriver.Firefox()
     elif which == 'chrome':
         driver = webdriver.Remote("http://localhost:9515", {})
+    elif which == 'ie':
+        driver = webdriver.Ie()
     return driver
 
 
