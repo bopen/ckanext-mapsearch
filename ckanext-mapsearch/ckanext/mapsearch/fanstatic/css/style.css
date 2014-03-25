@@ -1,3 +1,7 @@
+body {
+  font-family: Helvetica, Arial, Sans-Serif;
+}
+
 #all {
     position: absolute;
     position:fixed !important;
@@ -187,15 +191,14 @@ a:hover {
 }
 .result_panel_expand_toggler_container {
     position: relative;
-    right: 5px;
-    text-align: right;
     display: inline;
 }
 .result_panel_expand_toggler {
     position: relative;
-    font-size: 25pt;
-    top: 16px;
-    left: 14px;
+    left: 3px;
+}
+.result_panel_expand_toggler > img {
+    height: 15px;
 }
 
 #right_column {
