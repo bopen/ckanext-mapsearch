@@ -7,7 +7,7 @@ ABOUT
 
 Mapsearch is a CKAN-extension to add an immersive, map-centered search to the *CKAN spatial extension* `(ckanext-spatial) <https://github.com/ckan/ckanext-spatial>`_.
 
-.. image:: https://bitbucket.org/bopen/ckanext-mapsearch/raw/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_shot.png
+.. image:: https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_shot.png
     :alt: Full screenshot
     :align: center
 
@@ -17,9 +17,9 @@ FEATURES
 
 Its main distinguishing factor is the scale-awareness of the search-engine.
 
-This scale-awareness lets you see how many results there are on 5 different scales for the same geographic area of interest, by using an extra area field during indexing. see `this <#schema>`_ paragraph below.
+This scale-awareness lets you see how many results there are on 5 different scales for the same geographic area of interest, by using an extra area field during indexing. see `this <#4-prepare-the-schema-for-the-extension>`_ paragraph below.
 
-.. image:: https://bitbucket.org/bopen/ckanext-mapsearch/raw/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_scales.png
+.. image:: https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_scales.png
     :alt: screenshot scales
     :align: center
 
@@ -30,13 +30,13 @@ see a working demo on `bopen.eu <http://ckan.bopen.eu/mapsearch>`_.
 
 INSTALLATION
 ============
-*ckanext-mapsearch* is installed like any ckan extension. However, as it depends on *ckanext-spatial* to be installed, make sure mapsearch comes after ckanext-spatial in the plugin list (see `below <#add-the-plugin>`_).
+*ckanext-mapsearch* is installed like any ckan extension. However, as it depends on *ckanext-spatial* to be installed, make sure mapsearch comes after ckanext-spatial in the plugin list (see `below <#2-add-the-extension-as-a-plugin>`_).
 
 1. install the extension with pip
 ---------------------------------
 .. code:: bash
 
-    pip install -e  git+https://bitbucket.org/bopen/ckanext-mapsearch.git#egg=ckanext-mapsearch
+    pip install -e  git+https://github.com/bopen/ckanext-mapsearch.git#egg=ckanext-mapsearch
 
 .. _add-the-plugin:
 
