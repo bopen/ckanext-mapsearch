@@ -80,7 +80,7 @@ this.ckan.module('mapsearch-setup', function ($, _) {
             autoOpen:false, modal:false,
             title:"Faceted Search", buttons: [{
                 text: "OK", click: function() {$( this ).dialog( "close" ); }}],
-            width:'66%'}
+            width:'80%'}
         );
 
         $('#filter_help_opener').click(function (event) {
@@ -93,7 +93,7 @@ this.ckan.module('mapsearch-setup', function ($, _) {
             autoOpen:false, modal:false,
             title:"Scales", buttons: [{
                 text: "OK", click: function() {$( this ).dialog( "close" ); }}],
-            width:'49%'}
+            width:'61%'}
         );
 
         $('#scale_help_opener').click(function (event) {

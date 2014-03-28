@@ -119,9 +119,19 @@ a:hover {
 }
 
 #filter_help_opener {
-  position: absolute;
-  right: 5px;
+    position: absolute;
+    right: -8px;
 }
+
+.help_icon {
+    width: 50%;
+}
+
+.leaflet-control  .help_icon {
+    width: 16px;
+    padding: 2px;
+}
+
 .descreet_help {
   color: #999!important;
   line-height: 1em;
@@ -233,10 +243,9 @@ a:hover {
 }
 
 .leaflet-control-help {
-    padding: 0.5px 3px;
-    background-color: #eee;
-    font-weight: bold;
-    font-size: 10pt;
+    width: 20px!important;
+    height: 20px!important;
+    background-color: #e6e6e6;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -o-border-radius: 5px;

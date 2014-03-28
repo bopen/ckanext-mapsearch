@@ -10,9 +10,9 @@ this.ckan.module('mapsearch', function ($, _) {
     },
 
     onAdd: function (map) {
-        var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar leaflet-control-help');
-        var link = $(L.DomUtil.create('a', 'help-link leaflet-bar-part leaflet-bar-part-top leaflet-bar-part-bottom  leaflet-control-help', container));
-        link.text("?");
+        var container = L.DomUtil.create('div', 'leaflet-control leaflet-bar leaflet-control-help'),
+            link = $(container);
+        link.html("<img class='help_icon' src='help_mapsearch.png'/>");
         link.on('click',
             function (e) {
               $('#about_help_window').dialog("open");
