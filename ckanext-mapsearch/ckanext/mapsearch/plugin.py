@@ -1,14 +1,11 @@
 from logging import getLogger
 
 from shapely.geometry import asShape, polygon
+from pylons import config
 import ckan.plugins as plugins
 from ckan.lib.helpers import json
 from ckan.lib.base import request
-from ckan.plugins import IRoutes
-from ckan.plugins import IConfigurer
-from ckan.plugins import IPackageController
 from ckanext.spatial.lib import validate_bbox
-from pylons import config
 
 log = getLogger(__name__)
 
@@ -21,9 +18,9 @@ def clip_bbox(bbox):
 
 
 class MapsearchPlugin(plugins.SingletonPlugin):
-    plugins.implements(IRoutes, inherit=True)
-    plugins.implements(IConfigurer, inherit=True)
-    plugins.implements(IPackageController, inherit=True)
+    plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IConfigurer, inherit=True)
+    plugins.implements(plugins.IPackageController, inherit=True)
     exclude_upper_bound = float(
         config.get('ckanext.mapsearch.exclude_upper_bound', 0.02))
     display_upper_bound = float(
