@@ -115,3 +115,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
 
+Acknowledgements
+================
+The development of this software, up to version *0.1.2*, has been partially funded by `Filas <http://www.filas.eu>`_ under `POR FESR Lazio 2007-2013 <http://porfesr.lazio.it>`_.
