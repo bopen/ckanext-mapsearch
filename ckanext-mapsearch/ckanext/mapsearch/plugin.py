@@ -11,6 +11,7 @@ log = getLogger(__name__)
 
 
 def clip_bbox(bbox):
+    """clips bounding box to maximum valid values."""
     return {'minx': max(-180, bbox['minx']),
             'miny': max(-90, bbox['miny']),
             'maxx': min(180, bbox['maxx']),
@@ -56,7 +57,7 @@ class MapsearchPlugin(plugins.SingletonPlugin):
     def before_search(self, search_params):
         """overwrites the search parameters of the spatial extension
 
-        we support only solr and solr-spatial-field backends.
+        we support only *solr* and *solr-spatial-field* backends.
         """
         # we treat only our own requests:
         if not request.referer or \
@@ -86,6 +87,7 @@ class MapsearchPlugin(plugins.SingletonPlugin):
         return search_params
 
     def _params_for_solr_search(self, bbox, search_params, scale):
+        """sets search parameters for solr search."""
         area_search = (abs(bbox['maxx'] - bbox['minx']) *
                        abs(bbox['maxy'] - bbox['miny']))
         area_string = 'div(%s,mul(sub(maxy,miny),sub(maxx,minx)))' % area_search
@@ -114,6 +116,7 @@ class MapsearchPlugin(plugins.SingletonPlugin):
 
     def _params_for_solr_spatial_field_search(self, bbox,
                                               search_params, scale):
+        """sets search parameters for *solr-spatial-field* search."""
         search_params['fq_list'] = []
         scale_bool_dict = {
             'too_small': '+spatial_geom:"IsWithin({minx} {miny} {maxx} {maxy})"',
@@ -149,6 +152,7 @@ class MapsearchPlugin(plugins.SingletonPlugin):
             minx=bbox['minx'], miny=bbox['miny'],
             maxx=bbox['maxx'], maxy=bbox['maxy']))
         search_params['fq_list'].append(scale_prop_dict[scale])
+
         if scale == 'normal':
             width_buffer = (bbox['maxx'] - bbox['minx']) * \
                 self.buffer_mult * 0.5
