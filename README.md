@@ -4,7 +4,7 @@ CKAN Mapsearch extension
 ABOUT
 -----
 
-Mapsearch is a CKAN-extension to add an immersive, map-centered search
+Mapsearch is a CKAN-extension to add a scale-aware, map-centered search
 to the *CKAN spatial extension* [(ckanext-spatial)][].
 
 ![Full screenshot](https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_shot.png)
