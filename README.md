@@ -5,7 +5,7 @@ ABOUT
 -----
 
 Mapsearch is a CKAN-extension to add a scale-aware, map-centered search
-to the *CKAN spatial extension* [(ckanext-spatial)][].
+to the *CKAN spatial extension* [(ckanext-spatial)](https://github.com/ckan/ckanext-spatial).
 
 ![Full screenshot](https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_shot.png)
 
@@ -17,21 +17,21 @@ search-engine.
 
 This scale-awareness lets you see how many results there are on 5
 different scales for the same geographic area of interest, by using an
-extra area field during indexing. see [this][] paragraph below.
+extra area field during indexing. see [this](#4-prepare-the-schema-for-the-extension) paragraph below.
 
 ![screenshot scales](https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_scales.png)
 
 DEMO
 ----
 
-see a working demo on [bopen.eu][].
+see a working demo on [bopen.eu](http://ckan.bopen.eu/mapsearch).
 
 INSTALLATION
 ------------
 
 *ckanext-mapsearch* is installed like any ckan extension. However, as it
 depends on *ckanext-spatial* to be installed, make sure mapsearch comes
-after ckanext-spatial in the plugin list (see [below][]).
+after ckanext-spatial in the plugin list (see [below](#2-add-the-extension-as-a-plugin)).
 
 ### 1. install the extension with pip
 
@@ -88,11 +88,33 @@ line to the schema.xml file in the ‘\<fields\>’ section.
 TESTS
 -----
 
-there a few basic selenium webdriver tests in
+there are few basic selenium webdriver tests in `tests` folder. 
 
-  [(ckanext-spatial)](https://github.com/ckan/ckanext-spatial)
-  [Full screenshot](https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_shot.png)
-  [this](#4-prepare-the-schema-for-the-extension)
-  [screenshot scales](https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_scales.png)
-  [bopen.eu](http://ckan.bopen.eu/mapsearch)
-  [below](#2-add-the-extension-as-a-plugin)
+NB: 
+- You will need full working instance with a minimum of data to run the tests. 
+- The tests assume you have an instance running on 'http://localhost:5000/mapsearch'. 
+However, you can override this by setting the *environment variable* MAPSEARCH_INSTANCE_URL appropriately.
+
+```
+export MAPSEARCH_INSTANCE_URL="http://ckan.bopen.eu/mapsearch"
+```
+
+LICENSE
+=======
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see http://www.gnu.org/licenses/.
+
+Acknowledgements
+================
+The development of this software, up to version *0.1.2*, has been partially funded by `Filas <http://www.filas.eu>`_ under `POR FESR Lazio 2007-2013 <http://porfesr.lazio.it>`_.
