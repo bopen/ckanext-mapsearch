@@ -90,9 +90,9 @@ TESTS
 
 there a few basic selenium webdriver tests in
 
-  [(ckanext-spatial)]: https://github.com/ckan/ckanext-spatial
-  [Full screenshot]: https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_shot.png
-  [this]: #4-prepare-the-schema-for-the-extension
-  [screenshot scales]: https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_scales.png
-  [bopen.eu]: http://ckan.bopen.eu/mapsearch
-  [below]: #2-add-the-extension-as-a-plugin
+  [(ckanext-spatial)](https://github.com/ckan/ckanext-spatial)
+  [Full screenshot](https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_shot.png)
+  [this](#4-prepare-the-schema-for-the-extension)
+  [screenshot scales](https://raw.githubusercontent.com/bopen/ckanext-mapsearch/master/ckanext-mapsearch/ckanext/mapsearch/public/mapsearch_scales.png)
+  [bopen.eu](http://ckan.bopen.eu/mapsearch)
+  [below](#2-add-the-extension-as-a-plugin)
