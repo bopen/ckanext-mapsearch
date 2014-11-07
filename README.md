@@ -33,7 +33,7 @@ INSTALLATION
 depends on *ckanext-spatial* to be installed, make sure mapsearch comes
 after ckanext-spatial in the plugin list (see [below](#2-add-the-extension-as-a-plugin)).
 
-It also requires solr >= 3.1, as per [http://docs.ckan.org/projects/ckanext-spatial/en/latest/spatial-search.html#choosing-a-backend-for-the-spatial-search].
+It also requires solr >= 3.1, as per http://docs.ckan.org/projects/ckanext-spatial/en/latest/spatial-search.html#choosing-a-backend-for-the-spatial-search.
 
 ### 1. install the extension with pip
 
