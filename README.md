@@ -53,11 +53,10 @@ ckan.plugins = stats text_preview resource_proxy recline_preview spatial_metadat
 
 -   set the initial mapextent
 
-    add a line to your ini-file specifying the initial map extent (i.e.
-    the geographical area shown on pageload)
+    add a line to your ini-file specifying the initial map extent ([bottom-left, upper-right]). To show Europe area on loadpage add the following line:
 
 ```
-ckanext.mapsearch.initial_map_extent = [[32.3957, -26.0339], [32.8129, -25.7732]] # Maputo, Moçambique
+ckanext.mapsearch.initial_map_extent = [[30.4806, -12.9449], [72.9295, 40.7210]]
 ```
 
 -   make sure the spatial extension uses solr-spatial field as the
